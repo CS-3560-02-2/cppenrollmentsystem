@@ -1,16 +1,18 @@
 #ifndef COURSE_H
 #define COURSE_H
 
+#include <string>
+
 class Course
 {
 public:
     Course();
-    
+
 private:
     int courseNumber;
-    string courseTitle;
+    std ::string courseTitle;
     int courseUnits;
-    string coursePrereq;
+    std ::string coursePrereq;
 };
 
 #endif
