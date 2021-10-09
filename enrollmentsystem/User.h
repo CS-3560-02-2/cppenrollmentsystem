@@ -9,8 +9,8 @@ public:
 	// Desructor
 	~User();
 private:
-	std::string name;
-	std::string emailAddress;
-	std::string phoneNumber;
-	std::string address;
+	std::string name;				// name of user
+	std::string emailAddress;		// emailAddress of user
+	std::string phoneNumber;		// phoneNumber of user
+	std::string address;			// address of user
 };
