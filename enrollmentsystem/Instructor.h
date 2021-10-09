@@ -12,5 +12,5 @@ public:
 	~Instructor:User();
 
 private:
-	std::string instructorID;
+	std::string instructorID;		// instructor ID
 };
