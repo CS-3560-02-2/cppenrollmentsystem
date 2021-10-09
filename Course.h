@@ -3,10 +3,13 @@
 
 #include <string>
 
+//this class is to give details regarding information about the course
+
 class Course
 {
 public:
-    Course();
+    Course();  //constructor
+    ~Course(); //destructor
 
 private:
     int courseNumber;
