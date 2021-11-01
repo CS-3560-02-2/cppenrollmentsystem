@@ -1,5 +1,6 @@
 # Class Course
 
+
 class Course:
     """Represents a course
 
@@ -12,7 +13,14 @@ class Course:
 
     """
 
-    def __init__(self, course_name, course_number, course_description, course_units, course_prereq) -> None:
+    def __init__(
+        self,
+        course_name,
+        course_number,
+        course_description,
+        course_units,
+        course_prereq,
+    ) -> None:
         self.course_name = course_name
         self.course_number = course_number
         self.course_description = course_description
