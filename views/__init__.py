@@ -1,0 +1,2 @@
+    """Package contains views
+    """
