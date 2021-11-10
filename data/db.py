@@ -1,7 +1,7 @@
 import sqlite3
 import datetime
 
-# Create tables if they do not exist
+# Initialize database if it does not exist
 def db_init():
     try:
         # Create a connection to the database
