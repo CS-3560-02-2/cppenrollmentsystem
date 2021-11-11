@@ -1,8 +1,12 @@
 import sqlite3
-from db import DB_PATH
+import db
 
-conn = sqlite3.connect(DB_PATH) #what to connect to, memory just put a fresh one in ram so it won't need to worry about duplications
+conn = sqlite3.connect(db.DB_PATH) #what to connect to, memory just put a fresh one in ram so it won't need to worry about duplications
 cursor = conn.cursor() #used to query
+
+cursor.execute("""DROP TABLE students""")
+conn.commit()
+db.db_init()
 
 def insert_students():
     with conn: #with is a context manager where you do not need to do conn commit after every execution
@@ -15,6 +19,9 @@ def insert_students():
         ("Richard","Leon","Ap #602-8550 Suscipit, Road","La Dorada","UT","9260","1-357-550-4043","sagittis.duis@icloud.edu","posuere,")"""
         )
 
+cursor.execute("""DROP TABLE instructors""")
+conn.commit()
+db.db_init()
 
 def insert_instructors():
     with conn:
