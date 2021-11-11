@@ -6,7 +6,7 @@ cursor = conn.cursor()
 
 cursor.execute("""DROP TABLE courses""")
 conn.commit
-db.db_init()
+db.create_courses_table()
 cursor.execute(
     """INSERT INTO courses (subject,course_num,course_title,course_description,course_units) VALUES
     ("CS", "1400", "Intro to Computer Science", "Problem-solving methods. Object-oriented concepts including classes, inheritance, and polymorphism. Basic control structures and data types. Files. Input/Output. Exception handling. Program documentation and testing.", "4"),
@@ -32,6 +32,9 @@ cursor.execute(
     WHERE (subject = 'PHY' AND course_num = 1510)"""
 )
 
+cursor.execute("""DROP TABLE course_section""")
+conn.commit
+db.create_course_sections_table()
 cursor.execute(
     """INSTERT INTO course_section (course_section_id, course_id, room, schedule_days, start_time, end_time) VALUES
     ("01", "1", "40", "MW", "1:00", "2:15"),
