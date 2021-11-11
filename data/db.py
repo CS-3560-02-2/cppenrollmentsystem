@@ -3,9 +3,9 @@ import os
 
 
 # Get the directory of the current file
-current_dir = os.path.dirname(__file__)
+CURRENT_DIR = os.path.dirname(__file__)
 # Set the db path to current directory
-DB_PATH = os.path.join(current_dir, "enrollmentsystem.db")
+DB_PATH = os.path.join(CURRENT_DIR, "enrollmentsystem.db")
 
 
 # Initialize database if it does not exist
