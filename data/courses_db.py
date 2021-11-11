@@ -25,11 +25,25 @@ cursor.execute(
     ("PHY", "1510", "Introduction to Newtonian Mechanics", "Introduction to mechanics, including Newton’s laws, vectors, statics, kinematics, conservation laws, rotational motion, Newtonian gravity, fluids, and simple harmonic motion.", "3")"""
 )
 conn.commit()
-
+# Set the course prerequisite of PHY 1510 to PHY 1020
 cursor.execute(
     """UPDATE courses
     SET course_prereq = (SELECT course_id FROM courses WHERE (subject = 'PHY' AND course_num = 1020))
     WHERE (subject = 'PHY' AND course_num = 1510)"""
+)
+
+cursor.execute(
+    """INSTERT INTO course_section (course_section_id, course_id, room, schedule_days, start_time, end_time) VALUES
+    ("01", "1", "40", "MW", "1:00", "2:15"),
+    ("02", "1", "40", "TTh", "1:00", "2:15"),
+    ("03", "1", "40", "MW", "10:00", "11:15"),
+    ("01", "2", "20", "MW", "10:00", "11:15"),
+    ("02", "2", "20", "MW", "1:00", "2:15"),
+    ("03", "2", "20", "TTh", "1:00", "2:15"),
+    ("01", "3", "10", "MWF", "10:00", "10:50"),
+    ("02", "3", "10", "MW", "12:00", "1:15"),
+    ("03", "3", "10", "TTh", "12:00", "1:15")
+    """
 )
 conn.commit()
 conn.close()
