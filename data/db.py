@@ -1,22 +1,37 @@
 import sqlite3
-import datetime
+import os
+
+
+# Get the directory of the current file
+current_dir = os.path.dirname(__file__)
+# Set the db path to current directory
+DB_PATH = os.path.join(current_dir, "enrollmentsystem.db")
+
 
 # Initialize database if it does not exist
 def db_init():
+    """ "Initializes the database if it does not exist
+
+    Raises:
+        sqlite3.Error: Error connecting to database.
+    """
     try:
         # Create a connection to the database
         # Create database if it does not exist
-        conn = sqlite3.connect("data/enrollmentsystem.db")
+
+        # Connect to db
+        conn = sqlite3.connect(DB_PATH)
         cursor = conn.cursor()
         # Create tables
         cursor.execute(
             """CREATE TABLE IF NOT EXISTS courses (
             course_id INTEGER NOT NULL UNIQUE,
+            subject TEXT NOT NULL,
+            course_num INTEGER NOT NULL,
             course_title TEXT NOT NULL,
             course_description TEXT,
             course_units INTEGER NOT NULL,
-            subject TEXT,
-            course_prereq INT,
+            course_prereq INTEGER,
             PRIMARY KEY (course_id),
             FOREIGN KEY (course_prereq) REFERENCES courses (course_id))"""
         )
@@ -50,7 +65,7 @@ def db_init():
                 major TEXT,
                 PRIMARY KEY (student_id))"""
         )
-        conn.commit
+        conn.commit()
         cursor.execute(
             """CREATE TABLE IF NOT EXISTS course_sections (
                 course_section_id INTEGER NOT NULL,
@@ -58,7 +73,7 @@ def db_init():
                 room TEXT,
                 schedule_days TEXT,
                 schedule_time TIME,
-                students_enrolled INTEGER, 
+                students_enrolled INTEGER,
                 class_capacity INTEGER,
                 waitlist_enrolled INTEGER,
                 instructor_id INTEGER,
@@ -75,7 +90,8 @@ def db_init():
                 grade TEXT,
                 term TEXT,
                 PRIMARY KEY (student_id, course_id, course_section_id),
-                FOREIGN KEY (course_id, course_section_id) REFERENCES course_sections (course_id, course_section_id),
+                FOREIGN KEY (course_id, course_section_id)
+                REFERENCES course_sections (course_id, course_section_id),
                 FOREIGN KEY (student_id) REFERENCES students (student_id))"""
         )
         conn.commit
