@@ -7,5 +7,5 @@ cursor = conn.cursor()
 
 def search_student():
     with conn:
-        cursor.execute("SELECT * FROM students WHERE course_id=?", (course_id))
+        cursor.execute("SELECT * FROM students WHERE email=?", (email))
         print(cursor.fetchone())
