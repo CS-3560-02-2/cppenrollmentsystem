@@ -1,75 +1,25 @@
 import sqlite3
 import os
+from sqlite3.dbapi2 import Error
 
 
 # Get the directory of the current file
 CURRENT_DIR = os.path.dirname(__file__)
 # Set the db path to current directory
 DB_PATH = os.path.join(CURRENT_DIR, "enrollmentsystem.db")
-
-
-# Initialize database if it does not exist
-def db_init():
-    """Initializes database"""
-    # Create tables
-    create_courses_table()
-    create_instructors_table()
-    create_students_table()
-    create_course_sections_table()
-    create_course_enrollments_table()
-
-
-def create_courses_table():
-    """Creates courses table if table does not exist
-
-    Raises:
-        sqlite3.Error if connection to db fails
-    """
-    try:
-        # Create a connection to the database
-        # Create database if it does not exist
-
-        # Connect to db
-        conn = sqlite3.connect(DB_PATH)
-        cursor = conn.cursor()
-        # Create table
-        cursor.execute(
-            """CREATE TABLE IF NOT EXISTS courses (
-            course_id INTEGER NOT NULL UNIQUE,
-            subject TEXT NOT NULL,
-            course_num INTEGER NOT NULL,
-            course_title TEXT NOT NULL,
-            course_description TEXT,
-            course_units INTEGER NOT NULL,
-            course_prereq INTEGER,
-            PRIMARY KEY (course_id),
-            FOREIGN KEY (course_prereq) REFERENCES courses (course_id))"""
-        )
-        conn.commit
-    except sqlite3.Error as error:
-        print("Error while connecting to sqlite", error)
-    finally:
-        if conn:
-            conn.close()
-            print("The SQLite connection is closed")
-
-
-def create_instructors_table():
-    """Creates instructors table if table does not exist
-
-    Raises:
-        sqlite3.Error if connection to db fails
-    """
-    try:
-        # Create a connection to the database
-        # Create database if it does not exist
-
-        # Connect to db
-        conn = sqlite3.connect(DB_PATH)
-        cursor = conn.cursor()
-        # Create table
-        cursor.execute(
-            """CREATE TABLE IF NOT EXISTS instructors (
+CONN_ERROR = "Error while connecting to sqlite"
+CONN_CLOSED = "The SQLite connection is closed"
+COURSES_TABLE = """CREATE TABLE IF NOT EXISTS courses (
+                course_id INTEGER NOT NULL UNIQUE,
+                subject TEXT NOT NULL,
+                course_num INTEGER NOT NULL,
+                course_title TEXT NOT NULL,
+                course_description TEXT,
+                course_units INTEGER NOT NULL,
+                course_prereq INTEGER,
+                PRIMARY KEY (course_id),
+                FOREIGN KEY (course_prereq) REFERENCES courses (course_id))"""
+INSTRUCTORS_TABLE = """CREATE TABLE IF NOT EXISTS instructors (
                 instructor_id INTEGER NOT NULL UNIQUE,
                 first_name TEXT NOT NULL,
                 last_name TEXT NOT NULL,
@@ -81,32 +31,7 @@ def create_instructors_table():
                 email TEXT NOT NULL,
                 department TEXT,
                 PRIMARY KEY (instructor_id))"""
-        )
-        conn.commit
-    except sqlite3.Error as error:
-        print("Error while connecting to sqlite", error)
-    finally:
-        if conn:
-            conn.close()
-            print("The SQLite connection is closed")
-
-
-def create_students_table():
-    """Creates students table if table does not exist
-
-    Raises:
-        sqlite3.Error if connection to db fails
-    """
-    try:
-        # Create a connection to the database
-        # Create database if it does not exist
-
-        # Connect to db
-        conn = sqlite3.connect(DB_PATH)
-        cursor = conn.cursor()
-        # Create table
-        cursor.execute(
-            """CREATE TABLE IF NOT EXISTS students (
+STUDENTS_TABLE = """CREATE TABLE IF NOT EXISTS students (
                 student_id INTEGER NOT NULL UNIQUE,
                 first_name TEXT NOT NULL,
                 last_name TEXT NOT NULL,
@@ -118,32 +43,7 @@ def create_students_table():
                 email TEXT NOT NULL,
                 major TEXT,
                 PRIMARY KEY (student_id))"""
-        )
-        conn.commit
-    except sqlite3.Error as error:
-        print("Error while connecting to sqlite", error)
-    finally:
-        if conn:
-            conn.close()
-            print("The SQLite connection is closed")
-
-
-def create_course_sections_table():
-    """Creates course_sections table if table does not exist
-
-    Raises:
-        sqlite3.Error if connection to db fails
-    """
-    try:
-        # Create a connection to the database
-        # Create database if it does not exist
-
-        # Connect to db
-        conn = sqlite3.connect(DB_PATH)
-        cursor = conn.cursor()
-        # Create table
-        cursor.execute(
-            """CREATE TABLE IF NOT EXISTS course_sections (
+COURSE_SECTIONS_TABLE = """CREATE TABLE IF NOT EXISTS course_sections (
                 course_section_id INTEGER NOT NULL,
                 course_id INTEGER NOT NULL,
                 room TEXT,
@@ -158,32 +58,7 @@ def create_course_sections_table():
                 PRIMARY KEY (course_section_id, course_id),
                 FOREIGN KEY (course_id) REFERENCES courses (course_id),
                 FOREIGN KEY (instructor_id) REFERENCES instructors (instructor_id))"""
-        )
-        conn.commit
-    except sqlite3.Error as error:
-        print("Error while connecting to sqlite", error)
-    finally:
-        if conn:
-            conn.close()
-            print("The SQLite connection is closed")
-
-
-def create_course_enrollments_table():
-    """Creates course_enrollments table if table does not exist
-
-    Raises:
-        sqlite3.Error if connection to db fails
-    """
-    try:
-        # Create a connection to the database
-        # Create database if it does not exist
-
-        # Connect to db
-        conn = sqlite3.connect(DB_PATH)
-        cursor = conn.cursor()
-        # Create table
-        cursor.execute(
-            """CREATE TABLE IF NOT EXISTS course_enrollments (
+COURSE_ENROLLMENTS_TABLE = """CREATE TABLE IF NOT EXISTS course_enrollments (
                 student_id INTEGER NOT NULL,
                 course_id INTEGER NOT NULL,
                 course_section_id INTEGER NOT NULL,
@@ -193,14 +68,58 @@ def create_course_enrollments_table():
                 FOREIGN KEY (course_id, course_section_id)
                 REFERENCES course_sections (course_id, course_section_id),
                 FOREIGN KEY (student_id) REFERENCES students (student_id))"""
-        )
-        conn.commit
-    except sqlite3.Error as error:
-        print("Error while connecting to sqlite", error)
-    finally:
-        if conn:
-            conn.close()
-            print("The SQLite connection is closed")
+TABLES = [
+    COURSES_TABLE,
+    INSTRUCTORS_TABLE,
+    STUDENTS_TABLE,
+    COURSE_SECTIONS_TABLE,
+    COURSE_ENROLLMENTS_TABLE,
+]
 
 
-db_init()
+def create_connection(db_file):
+    """Create a database connection to the SQLite database
+        specified by db_file
+
+    Args:
+        db_file (database file): database file
+    """
+    conn = None
+    try:
+        conn = sqlite3.connect(db_file)
+        return conn
+    except Error as error:
+        print(error)
+    return conn
+
+
+# Initialize database if it does not exist
+def db_init(connection, tables):
+    """Initialises the database file with the provided tables
+
+    Args:
+        connection (sqlite3.connect): connection to db
+        tables (list): list of tables with sql create statements
+    """
+    if connection is not None:
+        for table in tables:
+            create_table(connection, table)
+    else:
+        print(CONN_ERROR)
+
+
+def create_table(connection, create_table_sql):
+    """Creates a sqlite table from the provided sql statement
+
+    Args:
+        connection (sqlite3.connect): connection to db
+        create_table_sql (string): sql statement to execute
+    """
+    try:
+        cursor = connection.cursor()
+        cursor.execute(create_table_sql)
+    except Error as e:
+        print(e)
+
+
+db_init(create_connection(DB_PATH), TABLES)
