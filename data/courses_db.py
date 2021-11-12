@@ -5,7 +5,7 @@ conn = sqlite3.connect(db.DB_PATH)
 cursor = conn.cursor()
 
 cursor.execute("""DROP TABLE courses""")
-conn.commit
+conn.commit()
 db.create_courses_table()
 cursor.execute(
     """INSERT INTO courses (subject,course_num,course_title,course_description,course_units) VALUES
@@ -32,11 +32,11 @@ cursor.execute(
     WHERE (subject = 'PHY' AND course_num = 1510)"""
 )
 
-cursor.execute("""DROP TABLE course_section""")
-conn.commit
+cursor.execute("""DROP TABLE course_sections""")
+conn.commit()
 db.create_course_sections_table()
 cursor.execute(
-    """INSTERT INTO course_section (course_section_id, course_id, room, schedule_days, start_time, end_time) VALUES
+    """INSERT INTO course_sections (course_section_id, course_id, room, schedule_days, start_time, end_time) VALUES
     ("01", "1", "40", "MW", "1:00", "2:15"),
     ("02", "1", "40", "TTh", "1:00", "2:15"),
     ("03", "1", "40", "MW", "10:00", "11:15"),
