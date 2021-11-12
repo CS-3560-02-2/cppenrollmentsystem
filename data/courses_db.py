@@ -13,7 +13,7 @@ cursor = conn.cursor()
 
 
 def insert_courses():
-    try:
+    with conn:
         cursor.execute("""DROP TABLE courses""")
         conn.commit()
         create_courses_table()
@@ -34,26 +34,17 @@ def insert_courses():
             ("PHY", "1020", "Fundamentals of Physics", "The basic principles that govern the behavior of matter and energy. These principles will be explored in both fundamental contexts (e.g. the nature of measurement, space, time) and applied contexts (e.g. energy issues, the scientific basis of modern electronic technology).", "3"),
             ("PHY", "1510", "Introduction to Newtonian Mechanics", "Introduction to mechanics, including Newton’s laws, vectors, statics, kinematics, conservation laws, rotational motion, Newtonian gravity, fluids, and simple harmonic motion.", "3")"""
         )
-        conn.commit()
         # Set the course prerequisite of PHY 1510 to PHY 1020
         cursor.execute(
             """UPDATE courses
             SET course_prereq = (SELECT course_id FROM courses WHERE (subject = 'PHY' AND course_num = 1020))
             WHERE (subject = 'PHY' AND course_num = 1510)"""
         )
-        conn.commit()
-    except sqlite3.Error as error:
-        print(CONN_ERROR, error)
-    finally:
-        if conn:
-            conn.close()
-            print(CONN_CLOSED)
 
 
 def insert_sections():
-    try:
+    with conn:
         cursor.execute("""DROP TABLE course_sections""")
-        conn.commit()
         create_course_sections_table()
         cursor.execute(
             """INSERT INTO course_sections (course_section_id, course_id, room, schedule_days, start_time, end_time) VALUES
@@ -100,10 +91,3 @@ def insert_sections():
             WHERE room = '10'
             """
         )
-        conn.commit()
-    except sqlite3.Error as error:
-        print(CONN_ERROR, error)
-    finally:
-        if conn:
-            conn.close()
-            print(CONN_CLOSED)
