@@ -8,12 +8,12 @@ cursor = conn.cursor()
 def search_student(email):
     with conn:
         cursor.execute("SELECT * FROM students WHERE email=?", (email,)) #need the comma after email, to return the tuple, otherwise it will return a single index
-        print(cursor.fetchone())
+        return cursor.fetchone()
 
 
 def search_instructor(email):
     with conn:
         cursor.execute("SELECT * FROM instructor WHERE email=?", (email,))
-        print(cursor.fetchone())
+        return cursor.fetchone()
 
 conn.close()
