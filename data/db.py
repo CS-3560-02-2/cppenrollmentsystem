@@ -6,6 +6,8 @@ import os
 CURRENT_DIR = os.path.dirname(__file__)
 # Set the db path to current directory
 DB_PATH = os.path.join(CURRENT_DIR, "enrollmentsystem.db")
+CONN_ERROR = "Error while connecting to sqlite"
+CONN_CLOSED = "The SQLite connection is closed"
 
 
 # Initialize database if it does not exist
@@ -47,11 +49,11 @@ def create_courses_table():
         )
         conn.commit
     except sqlite3.Error as error:
-        print("Error while connecting to sqlite", error)
+        print(CONN_ERROR, error)
     finally:
         if conn:
             conn.close()
-            print("The SQLite connection is closed")
+            print(CONN_CLOSED)
 
 
 def create_instructors_table():
@@ -84,11 +86,11 @@ def create_instructors_table():
         )
         conn.commit
     except sqlite3.Error as error:
-        print("Error while connecting to sqlite", error)
+        print(CONN_ERROR, error)
     finally:
         if conn:
             conn.close()
-            print("The SQLite connection is closed")
+            print(CONN_CLOSED)
 
 
 def create_students_table():
@@ -121,11 +123,11 @@ def create_students_table():
         )
         conn.commit
     except sqlite3.Error as error:
-        print("Error while connecting to sqlite", error)
+        print(CONN_ERROR, error)
     finally:
         if conn:
             conn.close()
-            print("The SQLite connection is closed")
+            print(CONN_CLOSED)
 
 
 def create_course_sections_table():
@@ -161,11 +163,11 @@ def create_course_sections_table():
         )
         conn.commit
     except sqlite3.Error as error:
-        print("Error while connecting to sqlite", error)
+        print(CONN_ERROR, error)
     finally:
         if conn:
             conn.close()
-            print("The SQLite connection is closed")
+            print(CONN_CLOSED)
 
 
 def create_course_enrollments_table():
@@ -196,11 +198,11 @@ def create_course_enrollments_table():
         )
         conn.commit
     except sqlite3.Error as error:
-        print("Error while connecting to sqlite", error)
+        print(CONN_ERROR, error)
     finally:
         if conn:
             conn.close()
-            print("The SQLite connection is closed")
+            print(CONN_CLOSED)
 
 
 db_init()
