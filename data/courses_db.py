@@ -1,5 +1,11 @@
 import sqlite3
-from db import DB_PATH
+from .db import (
+    DB_PATH,
+    CONN_CLOSED,
+    CONN_ERROR,
+    create_courses_table,
+    create_course_sections_table,
+)
 
 
 conn = sqlite3.connect(DB_PATH)
@@ -10,7 +16,7 @@ def insert_courses():
     try:
         cursor.execute("""DROP TABLE courses""")
         conn.commit()
-        db.create_courses_table()
+        create_courses_table()
         cursor.execute(
             """INSERT INTO courses (subject,course_num,course_title,course_description,course_units) VALUES
             ("CS", "1400", "Intro to Computer Science", "Problem-solving methods. Object-oriented concepts including classes, inheritance, and polymorphism. Basic control structures and data types. Files. Input/Output. Exception handling. Program documentation and testing.", "4"),
