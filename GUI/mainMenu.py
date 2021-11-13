@@ -82,13 +82,13 @@ def searchExample():
     courseUnitMessage1 = tk.Label(text="4")
     addClassButton = tk.Button(text="Add Class", command=lambda: addClass())
 
-    courseIDMessage1.grid(row=4, column=0)
-    subjectMessage1.grid(row=4, column=2)
-    courseNumMessage1.grid(row=4, column=4)
-    courseTitleMessage1.grid(row=4, column=6)
-    courseDescriptionMessage1.grid(row=4, column=8)
-    courseUnitMessage1.grid(row=4, column=10)
-    addClassButton.grid(row=4, column=12)
+    courseIDMessage1.grid(row=5, column=0)
+    subjectMessage1.grid(row=5, column=2)
+    courseNumMessage1.grid(row=5, column=4)
+    courseTitleMessage1.grid(row=5, column=6)
+    courseDescriptionMessage1.grid(row=5, column=8)
+    courseUnitMessage1.grid(row=5, column=10)
+    addClassButton.grid(row=5, column=12)
 
     # Generates a separator
     tkinter.ttk.Separator(window, orient="vertical").grid(row=3, column=1, rowspan=10, sticky='ns')
@@ -97,6 +97,8 @@ def searchExample():
     tkinter.ttk.Separator(window, orient="vertical").grid(row=3, column=7, rowspan=10, sticky='ns')
     tkinter.ttk.Separator(window, orient="vertical").grid(row=3, column=9, rowspan=10, sticky='ns')
     tkinter.ttk.Separator(window, orient="vertical").grid(row=3, column=11, rowspan=10, sticky='ns')
+    tkinter.ttk.Separator(window, orient="vertical").grid(row=3, column=13, rowspan = 10, sticky='ns')
+    tkinter.ttk.Separator(window, orient="horizontal").grid(row=4, column=0, columnspan=30, ipadx=700, sticky='ns')
 
 def currentClasses():
     currentClassUserMessage = tk.Label(text="Your current classes:")
@@ -126,13 +128,13 @@ def currentClasses():
     spacer = tk.Label(text="              ")
 
     spacer.grid(row=0, column=13)
-    courseIDMessage1.grid(row=4, column=14, sticky="w")
-    subjectMessage1.grid(row=4, column=16, sticky="w")
-    courseNumMessage1.grid(row=4, column=18, sticky="w")
-    courseTitleMessage1.grid(row=4, column=20, sticky="w")
-    courseDescriptionMessage1.grid(row=4, column=22, sticky="w")
-    courseUnitMessage1.grid(row=4, column=24, sticky="w")
-    dropClassButton.grid(row=4, column=26, sticky="w")
+    courseIDMessage1.grid(row=5, column=14, sticky="w")
+    subjectMessage1.grid(row=5, column=16, sticky="w")
+    courseNumMessage1.grid(row=5, column=18, sticky="w")
+    courseTitleMessage1.grid(row=5, column=20, sticky="w")
+    courseDescriptionMessage1.grid(row=5, column=22, sticky="w")
+    courseUnitMessage1.grid(row=5, column=24, sticky="w")
+    dropClassButton.grid(row=5, column=26, sticky="w")
 
     currentClassUserMessage.grid(row=2, column=20, sticky="w")
 
