@@ -35,7 +35,7 @@ def executeScriptFromFile(filename):
             print("Command skipped: ", msg)
 
 
-executeScriptFromFile("enrollmentsystem.db.sql")
-
-conn.commit()
-conn.close()
+if __name__ == "__main__":
+    executeScriptFromFile("enrollmentsystem.db.sql")
+    conn.commit()
+    conn.close()
