@@ -1,3 +1,5 @@
+import Course.py
+
 class CourseEnrollment:
     """Represents a Student's course enrollment
 
@@ -11,3 +13,6 @@ class CourseEnrollment:
     def __init__(self, grade, semester) -> None:
         self.grade = grade
         self.semester = semester
+
+    def selectCourse(self):
+        return Course.selectCourse(self, course_subject, course_number)
