@@ -12,3 +12,5 @@ class CourseSection:
         self.student_capacity = student_capacity
         self.course_available = course_available
         self.course_schedule = course_schedule
+
+   
