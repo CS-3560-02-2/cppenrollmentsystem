@@ -1,4 +1,4 @@
-from models.User import _User
+from User import _User
 
 class Instructor(_User):
     """Represents an Instructor
