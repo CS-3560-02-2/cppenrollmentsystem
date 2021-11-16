@@ -123,4 +123,8 @@ def select_course_enrollment(student_id):
         cursor.execute(
             """SELECT * FROM course_enrollments WHERE student_id = ?""", (student_id,)
         )
+<<<<<<< HEAD
         return cursor.fetchall()
+=======
+    return cursor.fetchall()
+>>>>>>> 696b8f78c9b4b9ad2e8c39747bee0cf758895a03
