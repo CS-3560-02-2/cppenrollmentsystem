@@ -8,9 +8,6 @@ CURRENT_DIR = os.path.dirname(__file__)
 # Set the db path to current directory
 DB_PATH = os.path.join(CURRENT_DIR, "enrollmentsystem.db")
 
-conn = sqlite3.connect(DB_PATH)
-cursor = conn.cursor()
-
 
 def executeScriptFromFile(filename):
     """Executes commands from an sql file
@@ -19,6 +16,9 @@ def executeScriptFromFile(filename):
         filename (sql file): sql file to execute
     """
 
+    # Connect to db
+    conn = sqlite3.connect(DB_PATH)
+    cursor = conn.cursor()
     with open(filename, "r", encoding="utf-8") as sql_file:
         sql_script = sql_file.read()
 
@@ -33,9 +33,9 @@ def executeScriptFromFile(filename):
             cursor.execute(command)
         except OperationalError as msg:
             print("Command skipped: ", msg)
+    conn.commit()
+    conn.close()
 
 
 if __name__ == "__main__":
     executeScriptFromFile("enrollmentsystem.db.sql")
-    conn.commit()
-    conn.close()
