@@ -1,6 +1,6 @@
 import tkinter as tk
-from tkinter import *
 import tkinter.ttk
+import searchClassMenu
 
 # Creates the menu along with its dimensions
 window = tk.Tk()
@@ -15,90 +15,6 @@ def addClass():
 def dropClass():
     # dropStudentClass(classID)
     print("Drop a class")
-
-def searchMenu():
-    classNamelabel = tk.Label(text="Enter class name")
-    classSearchEntry = tk.Entry()  # Creates an entry box for the user. Requires an enter button to use
-    classSearchEntryButton = tk.Button(text="Search", command=lambda: searchClassName(classSearchEntry))
-
-    # Dropdown menu options
-    classDropdown = StringVar(window)
-    classDropdown.set("Category 1")
-    classCategory = OptionMenu(window, classDropdown, "Category 1", "Category 2", "Category 3")
-    classCategoryButton = tk.Button(text="Search", command=lambda: searchClassCategory(classCategory))
-
-    # Places objects onto GUI
-    classNamelabel.grid(row=1, column=6)
-    classSearchEntry.grid(row=1, column=8)
-    classSearchEntryButton.grid(row=1, column=10)
-    classCategory.grid(row=2, column=6)
-    classCategoryButton.grid(row=2, column=10)
-
-# Finds a number of classes that match user input via class name
-def searchClassName(userEntry):
-    # getNumberOfClasses(userEntry) - Need to get the number of classes retrieved through search results for loop iteration
-    # searchIteration(getNumberofClasses(userEntry))
-    print("Search class name")
-
-# Finds a number classes that match category input
-def searchClassCategory(userEntry):
-    # getNumberOfClasses(userEntry) - Need to get the number of classes retrieved through search results for loop iteration
-    # searchIteration(getNumberofClasses(userEntry))
-    print("Search class category")
-
-# Gets all matching classes and displays them
-def searchIteration(userEntry):
-    # getCourseID() - Gets the rest of the information
-    # getSubject()
-    # getCourseNum()
-    # getCourseTitle()
-    # getCourseDescription()
-    # getCourseUnits()
-    print("Listing Courses")
-
-def searchExample():
-    # Creates class identifiers for the user
-    courseIDMessage = tk.Label(text="course_id")
-    subjectMessage = tk.Label(text="subject")
-    courseNumMessage = tk.Label(text="course_num")
-    courseTitleMessage = tk.Label(text="course_title")
-    courseDescriptionMessage = tk.Label(text="course_description")
-    courseUnitMessage = tk.Label(text="course_units")
-
-    # Places text on screen
-    courseIDMessage.grid(row=3, column=0)
-    subjectMessage.grid(row=3, column=2)
-    courseNumMessage.grid(row=3, column=4)
-    courseTitleMessage.grid(row=3, column=6)
-    courseDescriptionMessage.grid(row=3, column=8)
-    courseUnitMessage.grid(row=3, column=10)
-
-    # Example class
-    courseIDMessage1 = tk.Label(text="CS140002")
-    subjectMessage1 = tk.Label(text="CS")
-    courseNumMessage1 = tk.Label(text="1400")
-    courseTitleMessage1 = tk.Label(text="Intro to Computer Science")
-    courseDescriptionMessage1 = tk.Label(text="Problem-solving methods")
-    courseUnitMessage1 = tk.Label(text="4")
-    addClassButton = tk.Button(text="Add Class", command=lambda: addClass())
-
-    courseIDMessage1.grid(row=5, column=0)
-    subjectMessage1.grid(row=5, column=2)
-    courseNumMessage1.grid(row=5, column=4)
-    courseTitleMessage1.grid(row=5, column=6)
-    courseDescriptionMessage1.grid(row=5, column=8)
-    courseUnitMessage1.grid(row=5, column=10)
-    addClassButton.grid(row=5, column=12)
-
-    # Generates a separator
-    tkinter.ttk.Separator(window, orient="vertical").grid(row=3, column=1, rowspan=10, sticky='ns')
-    tkinter.ttk.Separator(window, orient="vertical").grid(row=3, column=3, rowspan=10, sticky='ns')
-    tkinter.ttk.Separator(window, orient="vertical").grid(row=3, column=5, rowspan=10, sticky='ns')
-    tkinter.ttk.Separator(window, orient="vertical").grid(row=3, column=7, rowspan=10, sticky='ns')
-    tkinter.ttk.Separator(window, orient="vertical").grid(row=3, column=9, rowspan=10, sticky='ns')
-    tkinter.ttk.Separator(window, orient="vertical").grid(row=3, column=11, rowspan=10, sticky='ns')
-    tkinter.ttk.Separator(window, orient="vertical").grid(row=3, column=13, rowspan = 10, sticky='ns')
-    tkinter.ttk.Separator(window, orient="horizontal").grid(row=4, column=0, columnspan=30, ipadx=700, sticky='ns')
 
 def currentClasses():
     currentClassUserMessage = tk.Label(text="Your current classes:")
@@ -155,8 +71,8 @@ def main():
     userMessage.grid(row=0, column=6, sticky="w")
 
     # Search bar methods
-    searchMenu()
-    searchExample()
+    searchClassMenu.searchMenu(window)
+    searchClassMenu.searchExample(window)
     currentClasses()
 
     window.columnconfigure(1, weight=0)
