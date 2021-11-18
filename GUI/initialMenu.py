@@ -5,7 +5,7 @@ if __name__ == "__main__":
     sys.path.append(os.getcwd())
 
 import tkinter as tk
-from tkinter import *
+
 
 sID = ""
 
@@ -25,7 +25,7 @@ def studentMenu(top):
     deleteGrid(top, 0, 0)
     deleteGrid(top, 0, 1)
     studentMessage = tk.Label(top, text="Enter your student id")
-    studentEntry = Entry(top)
+    studentEntry = tk.Entry(top)
     studentConfirmation = tk.Button(
         top, text="Enter", command=lambda: enterID(studentEntry, top)
     )

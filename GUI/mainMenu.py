@@ -8,7 +8,7 @@ import tkinter as tk
 import searchClassMenu
 import currentClasses
 import initialMenu
-from tkinter import *
+
 
 # Creates the menu along with its dimensions
 window = tk.Tk()
@@ -17,7 +17,7 @@ window.geometry("1500x1500")
 
 def main():
     window.withdraw()
-    top = Toplevel(window)
+    top = tk.Toplevel(window)
     top.geometry("250x100")
     initialMenu.initialMenu(top)
     window.wait_window(top)

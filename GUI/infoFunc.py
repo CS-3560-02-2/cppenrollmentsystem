@@ -90,7 +90,7 @@ class util:
         Returns:
             Tuple: Tuple containing the count
         """
-        self.db.select_course_subject_count(userEntrySubject.upper())[0]
+        return self.db.select_course_subject_count(userEntrySubject.upper())[0]
 
     def getNumberOfClassesStudentID(self, StudentID):
         """Returns the number of classes the student is enrolled in

@@ -5,7 +5,6 @@ if __name__ == "__main__":
     sys.path.append(os.getcwd())
 
 import tkinter as tk
-from tkinter import *
 import tkinter.ttk
 import collections
 from infoFunc import util
@@ -53,9 +52,9 @@ def searchMenu(window, studentID):
     )
 
     # Dropdown menu options
-    classDropdown = StringVar(window)
+    classDropdown = tk.StringVar(window)
     classDropdown.set("CS")
-    classCategory = OptionMenu(window, classDropdown, "CS", "MAT")
+    classCategory = tk.OptionMenu(window, classDropdown, "CS", "MAT")
     classCategoryButton = tk.Button(
         text="Search",
         command=lambda: searchClassCategory(classCategory, window, studentID),
