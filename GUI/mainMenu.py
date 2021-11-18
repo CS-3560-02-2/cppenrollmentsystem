@@ -21,7 +21,7 @@ def main():
     userMessage.grid(row=0, column=6, sticky="w")
 
     # Search bar methods
-    searchClassMenu.searchMenu(window)
+    searchClassMenu.searchMenu(window, studentID)
     currentClasses.currentClasses(window, studentID)
     window.columnconfigure(1, weight=0)
     window.after(1000, currentClasses)
