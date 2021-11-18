@@ -30,6 +30,7 @@ def studentMenu(top):
         top, text="Enter", command=lambda: enterID(studentEntry, top)
     )
 
+
     studentMessage.grid(row=0, column=0)
     studentEntry.grid(row=1, column=0)
     studentConfirmation.grid(row=1, column=1)
