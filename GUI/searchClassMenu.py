@@ -57,7 +57,7 @@ def searchMenu(window, studentID):
     classCategory = tk.OptionMenu(window, classDropdown, "CS", "MAT")
     classCategoryButton = tk.Button(
         text="Search",
-        command=lambda: searchClassCategory(classCategory, window, studentID),
+        command=lambda: searchClassCategory(classDropdown, window, studentID),
     )
     # Practice function
     # classCategoryButton = tk.Button(text="Search", command=lambda: practiceFunction(classCategory, window))
@@ -123,12 +123,12 @@ def searchClassName(userEntry, window, studentID):
 # Finds a number classes that match category input
 def searchClassCategory(userEntry, window, studentID):
     utility = util()
-    utility.search_courses(userEntry)
+    utility.search_courses(userEntry.get())
     utility.getNumberOfClassesSubject(
-        userEntry
+        userEntry.get()
     )  # Need to get the number of classes retrieved through search results for loop iteration
     searchIteration(
-        utility.getNumberOfClassesSubject(userEntry), window, studentID, utility
+        utility.getNumberOfClassesSubject(userEntry.get()), window, studentID, utility
     )
 
 
