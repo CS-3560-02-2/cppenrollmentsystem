@@ -26,12 +26,16 @@ def main():
     userMessage = tk.Label(text="Enter a class name or search by section below")
     # Places the buttons onto the window
     userMessage.grid(row=0, column=6, sticky="w")
+    updateClasses = tk.Button(
+        text="Refresh", command=lambda: currentClasses.currentClasses(window, studentID)
+    )
+    updateClasses.grid(row=2, column=22)
 
     # Search bar methods
     searchClassMenu.searchMenu(window, studentID)
     currentClasses.currentClasses(window, studentID)
     window.columnconfigure(1, weight=0)
-    window.after(1000, currentClasses)
+    window.after(1000, currentClasses.currentClasses(window, studentID))
     window.deiconify()
     window.mainloop()
 
