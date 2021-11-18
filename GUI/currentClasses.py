@@ -6,7 +6,7 @@ a = 0
 b = 5
 
 # Displays current student classes
-def currentClasses(window):
+def currentClasses(window, studentID):
 
     currentClassUserMessage = tk.Label(text="Your current classes:")
     spacer = tk.Label(text="              ")
@@ -25,7 +25,7 @@ def currentClasses(window):
     courseDescriptionMessage.grid(row=3, column=22)
     courseUnitMessage.grid(row=3, column=24)
 
-    generateClasses(window)
+    generateClasses(window, studentID)
 
     spacer.grid(row=0, column=13)
     currentClassUserMessage.grid(row=2, column=20, sticky="w")
@@ -37,7 +37,7 @@ def currentClasses(window):
     tkinter.ttk.Separator(window, orient="vertical").grid(row=3, column=23, rowspan=10, sticky='ns')
     tkinter.ttk.Separator(window, orient="vertical").grid(row=3, column=25, rowspan=10, sticky='ns')
 
-def generateClasses(window):
+def generateClasses(window, studentID):
     global n, a, b
     if a > 0:
         while a != 0:
@@ -46,7 +46,7 @@ def generateClasses(window):
             b -= 2
     a = 0
     b = 5
-    n = getNumberOfClasses()
+    n = getNumberOfClasses(studentID)
     ID = getCurrentCourseID()
     Subject = getCurrentSubject()
     CourseNum = getCurrentCourseNum()
