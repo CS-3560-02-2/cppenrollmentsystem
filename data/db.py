@@ -1,3 +1,9 @@
+if __name__ == "__main__":
+    import os
+    import sys
+
+    sys.path.append(os.getcwd())
+
 import sqlite3
 import os
 from sqlite3.dbapi2 import OperationalError

@@ -1,4 +1,10 @@
-# Class Course
+if __name__ == "__main__":
+    import os
+    import sys
+
+    sys.path.append(os.getcwd())
+
+from data.db import DB
 
 
 class Course:
@@ -37,7 +43,7 @@ class Course:
         self.course_ID = course_ID
 
     def selectCourse(self, course_subject, course_number):
-        return self.course_ID 
+        return self.course_ID
 
     def selectAllSections(self):
         return self.course_sections

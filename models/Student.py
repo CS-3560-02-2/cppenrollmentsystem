@@ -1,4 +1,12 @@
-from User import _User
+if __name__ == "__main__":
+    import os
+    import sys
+
+    sys.path.append(os.getcwd())
+
+from models.User import _User
+from data.db import DB
+
 
 class Student(_User):
     """Represents a Student
@@ -20,9 +28,23 @@ class Student(_User):
         setMajor:Sets student's major to a new one
     """
 
-    def __init__(self, first_name, last_name, street, state, zip_code, phone_number, email, student_id, major) -> None:
-        super().__init__(first_name, last_name, street, state, zip_code, phone_number, email)
+    def __init__(
+        self,
+        student_id,
+        first_name,
+        last_name,
+        street,
+        city,
+        state,
+        zip_code,
+        phone_number,
+        email,
+        major,
+    ) -> None:
         self.student_id = student_id
+        super().__init__(
+            first_name, last_name, street, city, state, zip_code, phone_number, email
+        )
         self.major = major
 
     def getStudent_id(self):
@@ -36,4 +58,3 @@ class Student(_User):
 
     def setMajor(self, _major):
         self.major = _major
-
