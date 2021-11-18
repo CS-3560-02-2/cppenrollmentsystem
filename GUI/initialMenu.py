@@ -17,14 +17,14 @@ def getID():
 
 def enterID(studentEntry, top):
     global sID
-    sID = studentEntry
+    sID = studentEntry.get()
     top.destroy()
 
 
 def studentMenu(top):
     deleteGrid(top, 0, 0)
     deleteGrid(top, 0, 1)
-    studentMessage = tk.Label(top, text="Enter your student email address")
+    studentMessage = tk.Label(top, text="Enter your student id")
     studentEntry = Entry(top)
     studentConfirmation = tk.Button(
         top, text="Enter", command=lambda: enterID(studentEntry, top)

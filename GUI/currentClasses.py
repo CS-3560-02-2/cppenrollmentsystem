@@ -84,7 +84,8 @@ def generateClasses(window, studentID):
     b = 5
     utility = util()
     utility.get_student_schedule(studentID)
-    n = utility.getNumberOfClassesStudentID(studentID)
+    temp = utility.getNumberOfClassesStudentID(studentID)
+    n = temp[0]
     ID = utility.getCourseID()
     Subject = utility.getSubject()
     CourseNum = utility.getCourseNum()

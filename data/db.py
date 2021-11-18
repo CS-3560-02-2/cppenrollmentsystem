@@ -196,7 +196,7 @@ class DB:
                 """SELECT 
                         c.course_id, c.subject, c.course_num, c.course_title,
                         cs.course_section_id, cs.schedule_days, cs.start_time, cs.end_time,
-                        i.first_name || ' ' || i.last_name AS 'Instructor Name'
+                        i.first_name || ' ' || i.last_name AS 'Instructor Name', c.course_units
                     FROM courses c
                     JOIN course_sections cs
                         ON c.course_id = cs.course_id
@@ -251,7 +251,7 @@ class DB:
                 """SELECT 
                         c.subject, c.course_num, c.course_title,
                         cs.course_section_id, cs.schedule_days, cs.start_time, cs.end_time,
-                        i.first_name || ' ' || i.last_name AS 'Instructor Name'
+                        i.first_name || ' ' || i.last_name AS 'Instructor Name', c.course_units
                     FROM courses c
                     JOIN course_sections cs
                         ON c.course_id = cs.course_id
@@ -297,7 +297,7 @@ class DB:
                 """SELECT 
                     c.course_id, c.subject, c.course_num, c.course_title,
                     cs.course_section_id, cs.schedule_days, cs.start_time, cs.end_time,
-                    i.first_name || ' ' || i.last_name AS 'Instructor Name'
+                    i.first_name || ' ' || i.last_name AS 'Instructor Name', c.course_units
                 FROM courses c
                 JOIN course_sections cs
                     ON c.course_id = cs.course_id
@@ -325,7 +325,7 @@ class DB:
                 """SELECT 
                         c.course_id, c.subject, c.course_num, c.course_title,
                         cs.course_section_id, cs.schedule_days, cs.start_time, cs.end_time,
-                        i.first_name || ' ' || i.last_name AS 'Instructor Name'
+                        i.first_name || ' ' || i.last_name AS 'Instructor Name', c.course_units
                     FROM courses c
                     JOIN course_sections cs
                         ON c.course_id = cs.course_id

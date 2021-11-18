@@ -23,7 +23,9 @@ class util:
 
     def get_student_schedule(self, studentID):
         self.student_id = studentID
-        self.searched_course = self.db.select_student_enrollment_detailed(studentID)
+        self.searched_course = self.db.select_student_enrollment_detailed(
+            int(studentID)
+        )
 
         return self.searched_course
 
