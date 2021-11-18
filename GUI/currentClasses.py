@@ -1,5 +1,6 @@
 import tkinter as tk
 import tkinter.ttk
+import infoFunc
 
 n = 0
 a = 0
@@ -14,28 +15,38 @@ def currentClasses(window, studentID):
     subjectMessage = tk.Label(text="subject")
     courseNumMessage = tk.Label(text="course_num")
     courseTitleMessage = tk.Label(text="course_title")
-    courseDescriptionMessage = tk.Label(text="course_description")
-    courseUnitMessage = tk.Label(text="course_units")
+    courseSectionID = tk.Label(text="sec_ID")
+    daysMessage = tk.Label(text="days")
+    startMessage = tk.Label(text="start")
+    endMessage = tk.Label(text="end")
+    instructorMessage = tk.Label(text="instructor")
+    courseUnitMessage = tk.Label(text="units")
 
     # Places text on screen
-    courseIDMessage.grid(row=3, column=14)
-    subjectMessage.grid(row=3, column=16)
-    courseNumMessage.grid(row=3, column=18)
-    courseTitleMessage.grid(row=3, column=20)
-    courseDescriptionMessage.grid(row=3, column=22)
-    courseUnitMessage.grid(row=3, column=24)
+    spacer.grid(row=0, column=21)
+    courseIDMessage.grid(row=3, column=22)
+    subjectMessage.grid(row=3, column=24)
+    courseNumMessage.grid(row=3, column=26)
+    courseTitleMessage.grid(row=3, column=28)
+    courseSectionID.grid(row=3, column=30)
+    daysMessage.grid(row=3, column=32)
+    startMessage.grid(row=3, column=34)
+    endMessage.grid(row=3, column=36)
+    instructorMessage.grid(row=3, column=38)
+    courseUnitMessage.grid(row=3, column=40)
 
     generateClasses(window, studentID)
-
-    spacer.grid(row=0, column=13)
     currentClassUserMessage.grid(row=2, column=20, sticky="w")
 
-    tkinter.ttk.Separator(window, orient="vertical").grid(row=3, column=15, rowspan=10, sticky='ns')
-    tkinter.ttk.Separator(window, orient="vertical").grid(row=3, column=17, rowspan=10, sticky='ns')
-    tkinter.ttk.Separator(window, orient="vertical").grid(row=3, column=19, rowspan=10, sticky='ns')
-    tkinter.ttk.Separator(window, orient="vertical").grid(row=3, column=21, rowspan=10, sticky='ns')
-    tkinter.ttk.Separator(window, orient="vertical").grid(row=3, column=23, rowspan=10, sticky='ns')
-    tkinter.ttk.Separator(window, orient="vertical").grid(row=3, column=25, rowspan=10, sticky='ns')
+    tkinter.ttk.Separator(window, orient="vertical").grid(row=3, column=23, rowspan=50, sticky='ns')
+    tkinter.ttk.Separator(window, orient="vertical").grid(row=3, column=25, rowspan=50, sticky='ns')
+    tkinter.ttk.Separator(window, orient="vertical").grid(row=3, column=27, rowspan=50, sticky='ns')
+    tkinter.ttk.Separator(window, orient="vertical").grid(row=3, column=29, rowspan=50, sticky='ns')
+    tkinter.ttk.Separator(window, orient="vertical").grid(row=3, column=31, rowspan=50, sticky='ns')
+    tkinter.ttk.Separator(window, orient="vertical").grid(row=3, column=33, rowspan=50, sticky='ns')
+    tkinter.ttk.Separator(window, orient="vertical").grid(row=3, column=35, rowspan=50, sticky='ns')
+    tkinter.ttk.Separator(window, orient="vertical").grid(row=3, column=37, rowspan=50, sticky='ns')
+    tkinter.ttk.Separator(window, orient="vertical").grid(row=3, column=39, rowspan=50, sticky='ns')
 
 def generateClasses(window, studentID):
     global n, a, b
@@ -46,49 +57,44 @@ def generateClasses(window, studentID):
             b -= 2
     a = 0
     b = 5
-    n = getNumberOfClasses(studentID)
-    ID = getCurrentCourseID()
-    Subject = getCurrentSubject()
-    CourseNum = getCurrentCourseNum()
-    CourseTitle = getCurrentCourseTitle()
-    CourseDesc = getCurrentCourseDescription()
-    CourseUnits = getCurrentCourseUnits()
+    n = infoFunc.getNumberOfClassesStudentID(studentID)
+    ID = infoFunc.getCourseID()
+    Subject = infoFunc.getSubject()
+    CourseNum = infoFunc.getCourseNum()
+    CourseTitle = infoFunc.getCourseTitle()
+    CourseSecID = infoFunc.getCourseSectionID()
+    Days = infoFunc.getScheduleDays()
+    startTime = infoFunc.getStartTime()
+    endTime = infoFunc.getEndTime()
+    instructorName = infoFunc.getIntructorName()
+    CourseUnits = infoFunc.getCourseUnits()
     while a < n:
-        IDLabel = tk.Label(text=ID[x])
-        SubjectLabel = tk.Label(text=Subject[x])
-        CourseNumLabel = tk.Label(text=CourseNum[x])
-        CourseTitleLabel = tk.Label(text=CourseTitle[x])
-        if len(CourseDesc[x]) > 17:
-            shortendedString = CourseDesc[x]
-            CourseDesc[x] = shortendedString[0:16] + "..."
-            CourseDescLabel = tk.Label(text=CourseDesc[x])
-        else:
-            CourseDescLabel = tk.Label(text=CourseDesc[x])
-        CourseUnitsLabel = tk.Label(text=CourseUnits[x])
+        IDLabel = tk.Label(text=ID[a])
+        SubjectLabel = tk.Label(text=Subject[a])
+        CourseNumLabel = tk.Label(text=CourseNum[a])
+        CourseTitleLabel = tk.Label(text=CourseTitle[a])
+        CourseSecIDLabel = tk.Label(text=CourseSecID[a])
+        DaysLabel = tk.Label(text=Days[a])
+        startTimeLabel = tk.Label(text=startTime[a])
+        endTimeLabel = tk.Label(text=endTime[a])
+        InstructorNameLabel = tk.Label(text=instructorName[a])
+        CourseUnitsLabel = tk.Label(text=CourseUnits[a])
+        dropClassButton = tk.Button(text="Drop Class", command=lambda: infoFunc.dropClass(ID[a], studentID))
 
-
-        courseIDMessage = tk.Label(text=IDLabel)
-        subjectMessage = tk.Label(text=SubjectLabel)
-        courseNumMessage = tk.Label(text=CourseNumLabel)
-        courseTitleMessage = tk.Label(text=CourseTitleLabel)
-        courseDescriptionMessage = tk.Label(text=CourseDescLabel)
-        courseUnitMessage = tk.Label(text=CourseUnitsLabel)
-        dropClassButton = tk.Button(text="Add Class", command=lambda: dropClass(IDLabel))
-
-        courseIDMessage.grid(row=5, column=14, sticky="w")
-        subjectMessage.grid(row=5, column=16, sticky="w")
-        courseNumMessage.grid(row=5, column=18, sticky="w")
-        courseTitleMessage.grid(row=5, column=20, sticky="w")
-        courseDescriptionMessage.grid(row=5, column=22, sticky="w")
-        courseUnitMessage.grid(row=5, column=24, sticky="w")
-        dropClassButton.grid(row=5, column=26, sticky="w")
+        IDLabel.grid(row=b, column=22)
+        SubjectLabel.grid(row=b, column=24)
+        CourseNumLabel.grid(row=b, column=26)
+        CourseTitleLabel.grid(row=b, column=28)
+        CourseSecIDLabel.grid(row=b, column=30)
+        DaysLabel.grid(row=b, column=32)
+        startTimeLabel.grid(row=b, column=34)
+        endTimeLabel.grid(row=b, column=36)
+        InstructorNameLabel.grid(row=b, column=38)
+        CourseUnitsLabel.grid(row=b, column=40)
+        dropClassButton.grid(row=b, column=42)
 
         a += 1
         b += 2
-
-# Drops student class
-def dropClass():
-    dropStudentClass(classID)
 
 def deleteGrid(window, a, b):
     messageRemoval = window.grid_slaves(row=a, column=b)
