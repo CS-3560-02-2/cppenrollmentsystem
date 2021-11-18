@@ -160,7 +160,8 @@ class DB:
             return cursor.fetchall()
 
     def select_course_enrollment(self, student_id):
-        """Queries db for course enrollment of a student
+        """Queries db for course enrollment of a student, returns the id values
+            for student, course, section, and the grade and term
 
         Args:
             student_id (int): Student id to search
@@ -178,7 +179,71 @@ class DB:
             )
             return cursor.fetchall()
 
-    def select_course_enrollment_detail(self, course_id, course_section_id):
+    def select_student_enrollment_detailed(self, student_id):
+        """Queries db for detailed enrollment of a student.
+
+        Args:
+            student_id (int): Student id to search
+
+        Returns:
+            List: List of tuples containg course enrollment information
+
+        """
+        conn = sqlite3.connect(self.db_path)
+        cursor = conn.cursor()
+        with conn:
+            cursor.execute(
+                """SELECT 
+                        c.course_id, c.subject, c.course_num, c.course_title,
+                        cs.course_section_id, cs.schedule_days, cs.start_time, cs.end_time,
+                        i.first_name || ' ' || i.last_name AS 'Instructor Name'
+                    FROM courses c
+                    JOIN course_sections cs
+                        ON c.course_id = cs.course_id
+                    JOIN course_enrollments ce
+                        ON ce.course_section_id = cs.course_section_id AND ce.course_id = cs.course_id
+                    JOIN instructors i
+                        ON cs.instructor_id = i.instructor_id
+                    WHERE ce.student_id = ?""",
+                (student_id,),
+            )
+            return cursor.fetchall()
+
+    def select_student_enrollment_schedule(self, student_id):
+        """Queries db for a students schedule
+
+
+        Args:
+            student_id (int): Student id to search
+
+        Returns:
+            Tuple: List of tuples containf the days, start time and end time
+        """
+        conn = sqlite3.connect(self.db_path)
+        cursor = conn.cursor()
+        with conn:
+            cursor.execute(
+                """SELECT cs.schedule_days, cs.start_time, cs.end_time
+                    FROM course_enrollments ce
+                    JOIN course_sections cs
+                        ON cs.course_id = ce.course_id AND cs.course_section_id = ce.course_section_id
+                    WHERE ce.student_id = ?
+                """,
+                (student_id,),
+            )
+        return cursor.fetchall()
+
+    def select_course_detail(self, course_id, course_section_id):
+        """Queries db for a detailed desctription of a course section. Provides subject
+            course number, title, section id, days, time, instructor name.
+
+        Args:
+            course_id (int): Course id to search
+            course_section_id (int): Section id to search
+
+        Returns:
+            Tuple: Tuple containg the detailed information
+        """
         conn = sqlite3.connect(self.db_path)
         cursor = conn.cursor()
         with conn:
@@ -198,6 +263,14 @@ class DB:
             return cursor.fetchone()
 
     def select_course_enrollment_count(self, student_id):
+        """Queries the database for the number of courses a student is enrolled
+
+        Args:
+            student_id (int): Student id to search
+
+        Returns:
+            Tuple: Tuple containg the count
+        """
 
         conn = sqlite3.connect(self.db_path)
         cursor = conn.cursor()
@@ -209,6 +282,14 @@ class DB:
             return cursor.fetchone()
 
     def select_course_detail_by_subject(self, subject):
+        """Queries the database for detailed course information from the course subject
+
+        Args:
+            subject (str): Subject to search
+
+        Returns:
+            Tuple: Tuple containing the detailed course information
+        """
         conn = sqlite3.connect(self.db_path)
         cursor = conn.cursor()
         with conn:
@@ -229,6 +310,14 @@ class DB:
         return cursor.fetchall()
 
     def select_course_detail_by_title(self, title):
+        """Queries the database for detailed course information from the course title
+
+        Args:
+            subject (str): Subject to search
+
+        Returns:
+            Tuple: Tuple containing the detailed course information
+        """
         conn = sqlite3.connect(self.db_path)
         cursor = conn.cursor()
         with conn:
@@ -272,6 +361,29 @@ class DB:
                 return 1
         except sqlite3.IntegrityError:
             return -1
+
+    def select_section_schedule(self, course_id, course_section_id):
+        """Queries db for a sections schedule
+
+
+        Args:
+            course_id (int): Course id to search
+            course_secton_id (int): Course section id to search
+
+        Returns:
+            Tuple: List of tuples containing the days, start time and end time
+        """
+        conn = sqlite3.connect(self.db_path)
+        cursor = conn.cursor()
+        with conn:
+            cursor.execute(
+                """SELECT cs.schedule_days, cs.start_time, cs.end_time
+                    FROM course_sections cs
+                    WHERE cs.course_section_id = ? AND cs.course_id = ?
+                """,
+                (course_section_id, course_id),
+            )
+        return cursor.fetchall()
 
     def update_course_enrollment(self, student_id, course_id, course_section_id, term):
         """Updates an enrollment in the database

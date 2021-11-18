@@ -4,7 +4,6 @@ if __name__ == "__main__":
 
     sys.path.append(os.getcwd())
 
-from string import capwords
 from data.db import DB
 
 
@@ -33,7 +32,20 @@ class util:
             courseSectionID (int): Section id
             studentID (int): Student id
         """
-        self.db.insert_course_enrollment(courseID, courseSectionID, studentID)
+        # Try to check for schedule conflicts
+        # select_student_enrollment returns the schedule of each course student is enrolled
+        # section_schedule returns the schedule of the section being added
+        # need to check if the schedule of the course being added conflicts with
+        # the existing schedule
+        current_schedule = self.db.select_student_enrollment_schedule(studentID)
+        section_schedule = self.db.select_section_schedule(courseID, courseSectionID)
+
+        # THIS DOESNT WORK FOR SOME REASON
+        if section_schedule in current_schedule:
+            return -1
+        else:
+            self.db.insert_course_enrollment(courseID, courseSectionID, studentID)
+            return 1
 
     def dropClass(self, courseID, courseSectionID, studentID):
         """Removes a course from a student's enrollment
@@ -187,3 +199,7 @@ class util:
         for index in self.searched_course:
             units.append(index[9])
         return units
+
+
+test = util("CS")
+test.addClass(1, 1, 1)
