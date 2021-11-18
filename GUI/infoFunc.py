@@ -10,6 +10,9 @@ def getNumberOfClassesName(userEntryName):
 def getNumberOfClassesSubject(userEntrySubject):
     ...
 
+def getNumberOfClassesStudentID(StudentID):
+    ...
+
 def getCourseID():
     ...
 
