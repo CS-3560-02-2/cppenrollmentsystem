@@ -283,7 +283,6 @@ INSERT OR IGNORE INTO "course_sections" ("course_section_id","course_id","room",
  (2,41,'32','Th','12:00','3:00',20,40,0,10,15);
 
 INSERT OR IGNORE INTO "course_enrollments" ("student_id","course_id","course_section_id") VALUES
-(1,1,1),
 (1,5,1),
 (1,15,2);
 COMMIT;

@@ -57,7 +57,7 @@ class util:
         if section_schedule in current_schedule:
             return -1
         else:
-            self.db.insert_course_enrollment(courseID, courseSectionID, studentID)
+            self.db.insert_course_enrollment(studentID, courseID, courseSectionID)
             return 1
 
     def dropClass(self, courseID, courseSectionID, studentID):

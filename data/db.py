@@ -381,9 +381,9 @@ class DB:
             cursor.execute(
                 """SELECT cs.schedule_days, cs.start_time, cs.end_time
                     FROM course_sections cs
-                    WHERE cs.course_section_id = ? AND cs.course_id = ?
+                    WHERE cs.course_id = ? AND cs.course_section_id = ?
                 """,
-                (course_section_id, course_id),
+                (course_id, course_section_id),
             )
         return cursor.fetchone()
 
