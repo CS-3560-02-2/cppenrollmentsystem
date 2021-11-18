@@ -10,7 +10,7 @@ from data.db import DB
 class util:
     """Utility class to call db query functions. Connects to the database through the DB interface class."""
 
-    def __init__(self, userEntry):
+    def __init__(self):
         """Constructor for util class.
 
 
@@ -18,11 +18,24 @@ class util:
             userEntry (str): search parameter provided by user
         """
         self.db = DB("enrollmentsystem.db")
+        self.searched_course = None
+        self.student_id = None
+
+    def get_student_schedule(self, studentID):
+        self.student_id = studentID
+        self.searched_course = self.db.select_student_enrollment_detailed(
+            int(studentID)
+        )
+
+        return self.searched_course
+
+    def search_courses(self, userEntry):
         length = len(userEntry)
         if length < 3:
             self.searched_course = self.db.select_course_detail_by_subject(userEntry)
         else:
             self.searched_course = self.db.select_course_detail_by_title(userEntry)
+        return self.searched_course
 
     def addClass(self, courseID, courseSectionID, studentID):
         """Adds a course to a student's enrollment
@@ -44,7 +57,7 @@ class util:
         if section_schedule in current_schedule:
             return -1
         else:
-            self.db.insert_course_enrollment(courseID, courseSectionID, studentID)
+            self.db.insert_course_enrollment(studentID, courseID, courseSectionID)
             return 1
 
     def dropClass(self, courseID, courseSectionID, studentID):
@@ -66,7 +79,7 @@ class util:
         Returns:
             Tuple: Tuple containing the count
         """
-        return self.db.select_course_title_count(userEntryName.title())
+        return self.db.select_course_title_count(userEntryName.title())[0]
 
     def getNumberOfClassesSubject(self, userEntrySubject):
         """Returns the number of classes when searched  by subject
@@ -77,7 +90,7 @@ class util:
         Returns:
             Tuple: Tuple containing the count
         """
-        return self.db.select_course_subject_count(userEntrySubject.upper())
+        return self.db.select_course_subject_count(userEntrySubject.upper())[0]
 
     def getNumberOfClassesStudentID(self, StudentID):
         """Returns the number of classes the student is enrolled in
@@ -130,7 +143,7 @@ class util:
             List: list of string course titles
         """
         titles = []
-        for index in titles:
+        for index in self.searched_course:
             titles.append(index[3])
         return titles
 

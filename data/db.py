@@ -118,7 +118,9 @@ class DB:
         conn = sqlite3.connect(self.db_path)
         cursor = conn.cursor()
         with conn:
-            cursor.execute("SELECT COUNT (*) FROM courses WHERE title=?", (title,))
+            cursor.execute(
+                "SELECT COUNT (*) FROM courses WHERE course_title=?", (title,)
+            )
             return cursor.fetchone()
 
     def select_course(self, subject, course_num):
@@ -196,7 +198,7 @@ class DB:
                 """SELECT 
                         c.course_id, c.subject, c.course_num, c.course_title,
                         cs.course_section_id, cs.schedule_days, cs.start_time, cs.end_time,
-                        i.first_name || ' ' || i.last_name AS 'Instructor Name'
+                        i.first_name || ' ' || i.last_name AS 'Instructor Name', c.course_units
                     FROM courses c
                     JOIN course_sections cs
                         ON c.course_id = cs.course_id
@@ -251,7 +253,7 @@ class DB:
                 """SELECT 
                         c.subject, c.course_num, c.course_title,
                         cs.course_section_id, cs.schedule_days, cs.start_time, cs.end_time,
-                        i.first_name || ' ' || i.last_name AS 'Instructor Name'
+                        i.first_name || ' ' || i.last_name AS 'Instructor Name', c.course_units
                     FROM courses c
                     JOIN course_sections cs
                         ON c.course_id = cs.course_id
@@ -297,7 +299,7 @@ class DB:
                 """SELECT 
                     c.course_id, c.subject, c.course_num, c.course_title,
                     cs.course_section_id, cs.schedule_days, cs.start_time, cs.end_time,
-                    i.first_name || ' ' || i.last_name AS 'Instructor Name'
+                    i.first_name || ' ' || i.last_name AS 'Instructor Name', c.course_units
                 FROM courses c
                 JOIN course_sections cs
                     ON c.course_id = cs.course_id
@@ -325,7 +327,7 @@ class DB:
                 """SELECT 
                         c.course_id, c.subject, c.course_num, c.course_title,
                         cs.course_section_id, cs.schedule_days, cs.start_time, cs.end_time,
-                        i.first_name || ' ' || i.last_name AS 'Instructor Name'
+                        i.first_name || ' ' || i.last_name AS 'Instructor Name', c.course_units
                     FROM courses c
                     JOIN course_sections cs
                         ON c.course_id = cs.course_id
@@ -379,9 +381,9 @@ class DB:
             cursor.execute(
                 """SELECT cs.schedule_days, cs.start_time, cs.end_time
                     FROM course_sections cs
-                    WHERE cs.course_section_id = ? AND cs.course_id = ?
+                    WHERE cs.course_id = ? AND cs.course_section_id = ?
                 """,
-                (course_section_id, course_id),
+                (course_id, course_section_id),
             )
         return cursor.fetchone()
 

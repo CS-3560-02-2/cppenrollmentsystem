@@ -5,7 +5,6 @@ if __name__ == "__main__":
     sys.path.append(os.getcwd())
 
 import tkinter as tk
-from tkinter import *
 import tkinter.ttk
 import collections
 from infoFunc import util
@@ -46,18 +45,19 @@ def searchMenu(window, studentID):
     classSearchEntry = (
         tk.Entry()
     )  # Creates an entry box for the user. Requires an enter button to use
+    userSearch = classSearchEntry.get()
     classSearchEntryButton = tk.Button(
         text="Search",
-        command=lambda: searchClassName(classSearchEntry, window, studentID),
+        command=lambda: searchClassName(userSearch, window, studentID),
     )
 
     # Dropdown menu options
-    classDropdown = StringVar(window)
+    classDropdown = tk.StringVar(window)
     classDropdown.set("CS")
-    classCategory = OptionMenu(window, classDropdown, "CS", "MAT")
+    classCategory = tk.OptionMenu(window, classDropdown, "CS", "MAT")
     classCategoryButton = tk.Button(
         text="Search",
-        command=lambda: searchClassCategory(classCategory, window, studentID),
+        command=lambda: searchClassCategory(classDropdown, window, studentID),
     )
     # Practice function
     # classCategoryButton = tk.Button(text="Search", command=lambda: practiceFunction(classCategory, window))
@@ -110,20 +110,26 @@ def searchMenu(window, studentID):
 
 # Finds a number of classes that match user input via class name
 def searchClassName(userEntry, window, studentID):
-    utility = util(userEntry)
+    utility = util()
+    utility.search_courses(userEntry)
     utility.getNumberOfClassesName(
         userEntry
     )  # Need to get the number of classes retrieved through search results for loop iteration
-    searchIteration(utility.getNumberOfClassesName(userEntry), window, studentID, utility)
+    searchIteration(
+        utility.getNumberOfClassesName(userEntry), window, studentID, utility
+    )
 
 
 # Finds a number classes that match category input
 def searchClassCategory(userEntry, window, studentID):
-    utility = util(userEntry)
+    utility = util()
+    utility.search_courses(userEntry.get())
     utility.getNumberOfClassesSubject(
-        userEntry
+        userEntry.get()
     )  # Need to get the number of classes retrieved through search results for loop iteration
-    searchIteration(utility.getNumberOfClassesSubject(userEntry), window, studentID, utility)
+    searchIteration(
+        utility.getNumberOfClassesSubject(userEntry.get()), window, studentID, utility
+    )
 
 
 # Gets all matching classes and displays them
@@ -159,7 +165,8 @@ def searchIteration(entries, window, studentID, utility):
         InstructorNameLabel = tk.Label(text=instructorName[x])
         CourseUnitsLabel = tk.Label(text=CourseUnits[x])
         addClassButton = tk.Button(
-            text="Add Class", command=lambda: utility.addClass(ID[x], CourseSecID[x], studentID)
+            text="Add Class",
+            command=lambda: utility.addClass(ID[x], CourseSecID[x], studentID),
         )
 
         IDLabel.grid(row=y, column=0)
