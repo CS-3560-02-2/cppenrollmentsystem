@@ -46,9 +46,10 @@ def searchMenu(window, studentID):
     classSearchEntry = (
         tk.Entry()
     )  # Creates an entry box for the user. Requires an enter button to use
+    userSearch = classSearchEntry.get()
     classSearchEntryButton = tk.Button(
         text="Search",
-        command=lambda: searchClassName(classSearchEntry, window, studentID),
+        command=lambda: searchClassName(userSearch, window, studentID),
     )
 
     # Dropdown menu options

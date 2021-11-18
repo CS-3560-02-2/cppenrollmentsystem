@@ -118,7 +118,9 @@ class DB:
         conn = sqlite3.connect(self.db_path)
         cursor = conn.cursor()
         with conn:
-            cursor.execute("SELECT COUNT (*) FROM courses WHERE title=?", (title,))
+            cursor.execute(
+                "SELECT COUNT (*) FROM courses WHERE course_title=?", (title,)
+            )
             return cursor.fetchone()
 
     def select_course(self, subject, course_num):

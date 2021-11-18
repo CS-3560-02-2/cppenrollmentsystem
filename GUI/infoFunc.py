@@ -79,7 +79,7 @@ class util:
         Returns:
             Tuple: Tuple containing the count
         """
-        return self.db.select_course_title_count(userEntryName.title())
+        return self.db.select_course_title_count(userEntryName.title())[0]
 
     def getNumberOfClassesSubject(self, userEntrySubject):
         """Returns the number of classes when searched  by subject
@@ -90,7 +90,7 @@ class util:
         Returns:
             Tuple: Tuple containing the count
         """
-        return self.db.select_course_subject_count(userEntrySubject.upper())
+        self.db.select_course_subject_count(userEntrySubject.upper())[0]
 
     def getNumberOfClassesStudentID(self, StudentID):
         """Returns the number of classes the student is enrolled in
@@ -143,7 +143,7 @@ class util:
             List: list of string course titles
         """
         titles = []
-        for index in titles:
+        for index in self.searched_course:
             titles.append(index[3])
         return titles
 
