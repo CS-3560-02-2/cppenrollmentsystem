@@ -10,7 +10,7 @@ from data.db import DB
 class util:
     """Utility class to call db query functions. Connects to the database through the DB interface class."""
 
-    def __init__(self, userEntry):
+    def __init__(self):
         """Constructor for util class.
 
 
@@ -18,11 +18,22 @@ class util:
             userEntry (str): search parameter provided by user
         """
         self.db = DB("enrollmentsystem.db")
+        self.searched_course = None
+        self.student_id = None
+
+    def get_student_schedule(self, studentID):
+        self.student_id = studentID
+        self.searched_course = self.db.select_student_enrollment_detailed(studentID)
+
+        return self.searched_course
+
+    def search_courses(self, userEntry):
         length = len(userEntry)
         if length < 3:
             self.searched_course = self.db.select_course_detail_by_subject(userEntry)
         else:
             self.searched_course = self.db.select_course_detail_by_title(userEntry)
+        return self.searched_course
 
     def addClass(self, courseID, courseSectionID, studentID):
         """Adds a course to a student's enrollment

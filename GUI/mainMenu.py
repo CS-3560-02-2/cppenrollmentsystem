@@ -1,3 +1,9 @@
+if __name__ == "__main__":
+    import os
+    import sys
+
+    sys.path.append(os.getcwd())
+
 import tkinter as tk
 import searchClassMenu
 import currentClasses
@@ -7,6 +13,7 @@ from tkinter import *
 # Creates the menu along with its dimensions
 window = tk.Tk()
 window.geometry("1500x1500")
+
 
 def main():
     window.withdraw()
@@ -27,5 +34,6 @@ def main():
     window.after(1000, currentClasses)
     window.deiconify()
     window.mainloop()
+
 
 main()

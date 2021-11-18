@@ -1,3 +1,9 @@
+if __name__ == "__main__":
+    import os
+    import sys
+
+    sys.path.append(os.getcwd())
+
 import tkinter as tk
 import tkinter.ttk
 from infoFunc import util
@@ -38,15 +44,34 @@ def currentClasses(window, studentID):
     generateClasses(window, studentID)
     currentClassUserMessage.grid(row=2, column=20, sticky="w")
 
-    tkinter.ttk.Separator(window, orient="vertical").grid(row=3, column=23, rowspan=50, sticky='ns')
-    tkinter.ttk.Separator(window, orient="vertical").grid(row=3, column=25, rowspan=50, sticky='ns')
-    tkinter.ttk.Separator(window, orient="vertical").grid(row=3, column=27, rowspan=50, sticky='ns')
-    tkinter.ttk.Separator(window, orient="vertical").grid(row=3, column=29, rowspan=50, sticky='ns')
-    tkinter.ttk.Separator(window, orient="vertical").grid(row=3, column=31, rowspan=50, sticky='ns')
-    tkinter.ttk.Separator(window, orient="vertical").grid(row=3, column=33, rowspan=50, sticky='ns')
-    tkinter.ttk.Separator(window, orient="vertical").grid(row=3, column=35, rowspan=50, sticky='ns')
-    tkinter.ttk.Separator(window, orient="vertical").grid(row=3, column=37, rowspan=50, sticky='ns')
-    tkinter.ttk.Separator(window, orient="vertical").grid(row=3, column=39, rowspan=50, sticky='ns')
+    tkinter.ttk.Separator(window, orient="vertical").grid(
+        row=3, column=23, rowspan=50, sticky="ns"
+    )
+    tkinter.ttk.Separator(window, orient="vertical").grid(
+        row=3, column=25, rowspan=50, sticky="ns"
+    )
+    tkinter.ttk.Separator(window, orient="vertical").grid(
+        row=3, column=27, rowspan=50, sticky="ns"
+    )
+    tkinter.ttk.Separator(window, orient="vertical").grid(
+        row=3, column=29, rowspan=50, sticky="ns"
+    )
+    tkinter.ttk.Separator(window, orient="vertical").grid(
+        row=3, column=31, rowspan=50, sticky="ns"
+    )
+    tkinter.ttk.Separator(window, orient="vertical").grid(
+        row=3, column=33, rowspan=50, sticky="ns"
+    )
+    tkinter.ttk.Separator(window, orient="vertical").grid(
+        row=3, column=35, rowspan=50, sticky="ns"
+    )
+    tkinter.ttk.Separator(window, orient="vertical").grid(
+        row=3, column=37, rowspan=50, sticky="ns"
+    )
+    tkinter.ttk.Separator(window, orient="vertical").grid(
+        row=3, column=39, rowspan=50, sticky="ns"
+    )
+
 
 def generateClasses(window, studentID):
     global n, a, b
@@ -57,7 +82,8 @@ def generateClasses(window, studentID):
             b -= 2
     a = 0
     b = 5
-    utility = util(studentID)
+    utility = util()
+    utility.get_student_schedule(studentID)
     n = utility.getNumberOfClassesStudentID(studentID)
     ID = utility.getCourseID()
     Subject = utility.getSubject()
@@ -80,7 +106,10 @@ def generateClasses(window, studentID):
         endTimeLabel = tk.Label(text=endTime[a])
         InstructorNameLabel = tk.Label(text=instructorName[a])
         CourseUnitsLabel = tk.Label(text=CourseUnits[a])
-        dropClassButton = tk.Button(text="Drop Class", command=lambda: utility.dropClass(ID[a], CourseSecID[a], studentID))
+        dropClassButton = tk.Button(
+            text="Drop Class",
+            command=lambda: utility.dropClass(ID[a], CourseSecID[a], studentID),
+        )
 
         IDLabel.grid(row=b, column=22)
         SubjectLabel.grid(row=b, column=24)
@@ -97,12 +126,14 @@ def generateClasses(window, studentID):
         a += 1
         b += 2
 
+
 def deleteGrid(window, a, b):
     messageRemoval = window.grid_slaves(row=a, column=b)
     for l in messageRemoval:
         l.destroy()
 
-'''
+
+"""
 def currentClasses():
     currentClassUserMessage = tk.Label(text="Your current classes:")
 
@@ -147,4 +178,4 @@ def currentClasses():
     tkinter.ttk.Separator(window, orient="vertical").grid(row=3, column=21, rowspan=10, sticky='ns')
     tkinter.ttk.Separator(window, orient="vertical").grid(row=3, column=23, rowspan=10, sticky='ns')
     tkinter.ttk.Separator(window, orient="vertical").grid(row=3, column=25, rowspan=10, sticky='ns')
-'''
+"""

@@ -110,20 +110,26 @@ def searchMenu(window, studentID):
 
 # Finds a number of classes that match user input via class name
 def searchClassName(userEntry, window, studentID):
-    utility = util(userEntry)
+    utility = util()
+    utility.search_courses(userEntry)
     utility.getNumberOfClassesName(
         userEntry
     )  # Need to get the number of classes retrieved through search results for loop iteration
-    searchIteration(utility.getNumberOfClassesName(userEntry), window, studentID, utility)
+    searchIteration(
+        utility.getNumberOfClassesName(userEntry), window, studentID, utility
+    )
 
 
 # Finds a number classes that match category input
 def searchClassCategory(userEntry, window, studentID):
-    utility = util(userEntry)
+    utility = util()
+    utility.search_courses(userEntry)
     utility.getNumberOfClassesSubject(
         userEntry
     )  # Need to get the number of classes retrieved through search results for loop iteration
-    searchIteration(utility.getNumberOfClassesSubject(userEntry), window, studentID, utility)
+    searchIteration(
+        utility.getNumberOfClassesSubject(userEntry), window, studentID, utility
+    )
 
 
 # Gets all matching classes and displays them
@@ -159,7 +165,8 @@ def searchIteration(entries, window, studentID, utility):
         InstructorNameLabel = tk.Label(text=instructorName[x])
         CourseUnitsLabel = tk.Label(text=CourseUnits[x])
         addClassButton = tk.Button(
-            text="Add Class", command=lambda: utility.addClass(ID[x], CourseSecID[x], studentID)
+            text="Add Class",
+            command=lambda: utility.addClass(ID[x], CourseSecID[x], studentID),
         )
 
         IDLabel.grid(row=y, column=0)
