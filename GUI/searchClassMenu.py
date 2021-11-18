@@ -8,7 +8,7 @@ import tkinter as tk
 from tkinter import *
 import tkinter.ttk
 import collections
-import infoFunc
+from infoFunc import util
 
 x = 0
 y = 5
@@ -110,22 +110,24 @@ def searchMenu(window, studentID):
 
 # Finds a number of classes that match user input via class name
 def searchClassName(userEntry, window, studentID):
-    infoFunc.getNumberOfClassesName(
+    utility = util(userEntry)
+    utility.getNumberOfClassesName(
         userEntry
     )  # Need to get the number of classes retrieved through search results for loop iteration
-    searchIteration(infoFunc.getNumberOfClassesName(userEntry), window, studentID)
+    searchIteration(utility.getNumberOfClassesName(userEntry), window, studentID, utility)
 
 
 # Finds a number classes that match category input
 def searchClassCategory(userEntry, window, studentID):
-    infoFunc.getNumberOfClassesSubject(
+    utility = util(userEntry)
+    utility.getNumberOfClassesSubject(
         userEntry
     )  # Need to get the number of classes retrieved through search results for loop iteration
-    searchIteration(infoFunc.getNumberOfClassesSubject(userEntry), window, studentID)
+    searchIteration(utility.getNumberOfClassesSubject(userEntry), window, studentID, utility)
 
 
 # Gets all matching classes and displays them
-def searchIteration(entries, window, studentID):
+def searchIteration(entries, window, studentID, utility):
     global x, y
     if x > 0:
         while x != 0:
@@ -133,16 +135,16 @@ def searchIteration(entries, window, studentID):
             x -= 1
             y -= 2
     # Gets the basic information about the classes
-    ID = infoFunc.getCourseID()
-    Subject = infoFunc.getSubject()
-    CourseNum = infoFunc.getCourseNum()
-    CourseTitle = infoFunc.getCourseTitle()
-    CourseSecID = infoFunc.getCourseSectionID()
-    Days = infoFunc.getScheduleDays()
-    startTime = infoFunc.getStartTime()
-    endTime = infoFunc.getEndTime()
-    instructorName = infoFunc.getIntructorName()
-    CourseUnits = infoFunc.getCourseUnits()
+    ID = utility.getCourseID()
+    Subject = utility.getSubject()
+    CourseNum = utility.getCourseNum()
+    CourseTitle = utility.getCourseTitle()
+    CourseSecID = utility.getCourseSectionID()
+    Days = utility.getScheduleDays()
+    startTime = utility.getStartTime()
+    endTime = utility.getEndTime()
+    instructorName = utility.getIntructorName()
+    CourseUnits = utility.getCourseUnits()
     x = 0
     y = 5
     while x < entries:
@@ -157,7 +159,7 @@ def searchIteration(entries, window, studentID):
         InstructorNameLabel = tk.Label(text=instructorName[x])
         CourseUnitsLabel = tk.Label(text=CourseUnits[x])
         addClassButton = tk.Button(
-            text="Add Class", command=lambda: infoFunc.addClass(IDLabel, studentID)
+            text="Add Class", command=lambda: utility.addClass(ID[x], CourseSecID[x], studentID)
         )
 
         IDLabel.grid(row=y, column=0)

@@ -1,6 +1,6 @@
 import tkinter as tk
 import tkinter.ttk
-import infoFunc
+from infoFunc import util
 
 n = 0
 a = 0
@@ -57,17 +57,18 @@ def generateClasses(window, studentID):
             b -= 2
     a = 0
     b = 5
-    n = infoFunc.getNumberOfClassesStudentID(studentID)
-    ID = infoFunc.getCourseID()
-    Subject = infoFunc.getSubject()
-    CourseNum = infoFunc.getCourseNum()
-    CourseTitle = infoFunc.getCourseTitle()
-    CourseSecID = infoFunc.getCourseSectionID()
-    Days = infoFunc.getScheduleDays()
-    startTime = infoFunc.getStartTime()
-    endTime = infoFunc.getEndTime()
-    instructorName = infoFunc.getIntructorName()
-    CourseUnits = infoFunc.getCourseUnits()
+    utility = util(studentID)
+    n = utility.getNumberOfClassesStudentID(studentID)
+    ID = utility.getCourseID()
+    Subject = utility.getSubject()
+    CourseNum = utility.getCourseNum()
+    CourseTitle = utility.getCourseTitle()
+    CourseSecID = utility.getCourseSectionID()
+    Days = utility.getScheduleDays()
+    startTime = utility.getStartTime()
+    endTime = utility.getEndTime()
+    instructorName = utility.getIntructorName()
+    CourseUnits = utility.getCourseUnits()
     while a < n:
         IDLabel = tk.Label(text=ID[a])
         SubjectLabel = tk.Label(text=Subject[a])
@@ -79,7 +80,7 @@ def generateClasses(window, studentID):
         endTimeLabel = tk.Label(text=endTime[a])
         InstructorNameLabel = tk.Label(text=instructorName[a])
         CourseUnitsLabel = tk.Label(text=CourseUnits[a])
-        dropClassButton = tk.Button(text="Drop Class", command=lambda: infoFunc.dropClass(ID[a], studentID))
+        dropClassButton = tk.Button(text="Drop Class", command=lambda: utility.dropClass(ID[a], CourseSecID[a], studentID))
 
         IDLabel.grid(row=b, column=22)
         SubjectLabel.grid(row=b, column=24)
