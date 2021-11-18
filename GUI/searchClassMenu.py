@@ -4,11 +4,13 @@ import tkinter.ttk
 import collections
 import infoFunc
 
-x = 0
-y = 5
-z = 0
+# Global variables
+x = 0 # Keeps track of the list iteration
+y = 5 # Placement for elements on rows
+z = 0 # I honestly forgot LOL
 
 def categorySeparator():
+    # Creates initial course categories
     courseIDMessage = tk.Label(text="course_id")
     subjectMessage = tk.Label(text="subject")
     courseNumMessage = tk.Label(text="course_num")
@@ -20,6 +22,7 @@ def categorySeparator():
     instructorMessage = tk.Label(text="instructor")
     courseUnitMessage = tk.Label(text="units")
 
+    # Places initial course categories onto GUI
     courseIDMessage.grid(row=3, column=0)
     subjectMessage.grid(row=3, column=2)
     courseNumMessage.grid(row=3, column=4)
@@ -32,17 +35,20 @@ def categorySeparator():
     courseUnitMessage.grid(row=3, column=18)
 
 def searchMenu(window, studentID):
+    # Calls the initial course category placements
     categorySeparator()
 
+    # Creates the search-by-name labels
     classNamelabel = tk.Label(text="Enter class name")
     classSearchEntry = tk.Entry()  # Creates an entry box for the user. Requires an enter button to use
-    classSearchEntryButton = tk.Button(text="Search", command=lambda: searchClassName(classSearchEntry, window, studentID))
+    classSearchEntryButton = tk.Button(text="Search", command=lambda: searchClassName(classSearchEntry, window, studentID)) # Calls function
 
-    # Dropdown menu options
+    # Creates the drop-down labels
     classDropdown = StringVar(window)
     classDropdown.set("CS")
-    classCategory = OptionMenu(window, classDropdown, "CS", "MAT")
-    classCategoryButton = tk.Button(text="Search", command=lambda: searchClassCategory(classCategory, window, studentID))
+    classCategory = OptionMenu(window, classDropdown, "CS", "MAT") # List of Classes for the drop-down menu
+    classCategoryButton = tk.Button(text="Search", command=lambda: searchClassCategory(classCategory, window, studentID)) # Calls function
+
     # Practice function
     #classCategoryButton = tk.Button(text="Search", command=lambda: practiceFunction(classCategory, window))
 
@@ -53,7 +59,7 @@ def searchMenu(window, studentID):
     classCategory.grid(row=2, column=6)
     classCategoryButton.grid(row=2, column=10)
 
-    # Generates a separator
+    # Generates a separator between the categories
     tkinter.ttk.Separator(window, orient="vertical").grid(row=3, column=1, rowspan=50, sticky='ns')
     tkinter.ttk.Separator(window, orient="vertical").grid(row=3, column=3, rowspan=50, sticky='ns')
     tkinter.ttk.Separator(window, orient="vertical").grid(row=3, column=5, rowspan=50, sticky='ns')
@@ -69,14 +75,12 @@ def searchMenu(window, studentID):
 
 # Finds a number of classes that match user input via class name
 def searchClassName(userEntry, window, studentID):
-    infoFunc.getNumberOfClassesName(userEntry) # Need to get the number of classes retrieved through search results for loop iteration
     searchIteration(infoFunc.getNumberOfClassesName(userEntry), window, studentID)
 
 
 # Finds a number classes that match category input
 def searchClassCategory(userEntry, window, studentID):
-    infoFunc.getNumberOfClassesSubject(userEntry) # Need to get the number of classes retrieved through search results for loop iteration
-    searchIteration(infoFunc.getNumberOfClassesSubject(userEntry), window, studentID)
+    searchIteration(infoFunc.getNumberOfClassesSubject(userEntry), window, studentID) # Uses a get function to get # of search results and calls function
 
 
 # Gets all matching classes and displays them
