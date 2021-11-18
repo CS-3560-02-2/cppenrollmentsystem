@@ -40,7 +40,7 @@ class util:
         current_schedule = self.db.select_student_enrollment_schedule(studentID)
         section_schedule = self.db.select_section_schedule(courseID, courseSectionID)
 
-        # THIS DOESNT WORK FOR SOME REASON
+        # THIS WORKS
         if section_schedule in current_schedule:
             return -1
         else:
@@ -199,7 +199,3 @@ class util:
         for index in self.searched_course:
             units.append(index[9])
         return units
-
-
-test = util("CS")
-test.addClass(1, 1, 1)

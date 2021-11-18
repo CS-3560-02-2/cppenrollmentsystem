@@ -383,7 +383,7 @@ class DB:
                 """,
                 (course_section_id, course_id),
             )
-        return cursor.fetchall()
+        return cursor.fetchone()
 
     def update_course_enrollment(self, student_id, course_id, course_section_id, term):
         """Updates an enrollment in the database
