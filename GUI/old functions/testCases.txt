@@ -1,0 +1,7 @@
+1,CS,1400,Intro to Cmputer Science, Problem-solving methods. Object-oriented concpets indludi...,4
+2,CS,2400,Data Structures and Advanced Programming,Abstract data types and their implementation using linear a...,4
+3,CS,2560,C++ Programming,C++ fundamentals. Recursion structures class encapsulatio...,3
+4,CS,4350,Database Systems,Database and transaction systems. Database components...,3
+5,MAT,1050,College Algebra,The theory and applications of real-valued functions...,3
+6,MAT,1060,Trigonometry,Right triangle trigonometry the unit circle trigonometric an...,3
+7,MAT,1070,Precalculus,Basic concepts of trigonometry and algebra including th...,5
