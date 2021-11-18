@@ -1,3 +1,9 @@
+if __name__ == "__main__":
+    import os
+    import sys
+
+    sys.path.append(os.getcwd())
+
 import tkinter as tk
 from tkinter import *
 import tkinter.ttk
@@ -7,6 +13,7 @@ import infoFunc
 x = 0
 y = 5
 z = 0
+
 
 def categorySeparator():
     courseIDMessage = tk.Label(text="course_id")
@@ -31,20 +38,29 @@ def categorySeparator():
     instructorMessage.grid(row=3, column=16)
     courseUnitMessage.grid(row=3, column=18)
 
+
 def searchMenu(window, studentID):
     categorySeparator()
 
     classNamelabel = tk.Label(text="Enter class name")
-    classSearchEntry = tk.Entry()  # Creates an entry box for the user. Requires an enter button to use
-    classSearchEntryButton = tk.Button(text="Search", command=lambda: searchClassName(classSearchEntry, window, studentID))
+    classSearchEntry = (
+        tk.Entry()
+    )  # Creates an entry box for the user. Requires an enter button to use
+    classSearchEntryButton = tk.Button(
+        text="Search",
+        command=lambda: searchClassName(classSearchEntry, window, studentID),
+    )
 
     # Dropdown menu options
     classDropdown = StringVar(window)
     classDropdown.set("CS")
     classCategory = OptionMenu(window, classDropdown, "CS", "MAT")
-    classCategoryButton = tk.Button(text="Search", command=lambda: searchClassCategory(classCategory, window, studentID))
+    classCategoryButton = tk.Button(
+        text="Search",
+        command=lambda: searchClassCategory(classCategory, window, studentID),
+    )
     # Practice function
-    #classCategoryButton = tk.Button(text="Search", command=lambda: practiceFunction(classCategory, window))
+    # classCategoryButton = tk.Button(text="Search", command=lambda: practiceFunction(classCategory, window))
 
     # Places objects onto GUI
     classNamelabel.grid(row=1, column=6)
@@ -54,28 +70,57 @@ def searchMenu(window, studentID):
     classCategoryButton.grid(row=2, column=10)
 
     # Generates a separator
-    tkinter.ttk.Separator(window, orient="vertical").grid(row=3, column=1, rowspan=50, sticky='ns')
-    tkinter.ttk.Separator(window, orient="vertical").grid(row=3, column=3, rowspan=50, sticky='ns')
-    tkinter.ttk.Separator(window, orient="vertical").grid(row=3, column=5, rowspan=50, sticky='ns')
-    tkinter.ttk.Separator(window, orient="vertical").grid(row=3, column=7, rowspan=50, sticky='ns')
-    tkinter.ttk.Separator(window, orient="vertical").grid(row=3, column=9, rowspan=50, sticky='ns')
-    tkinter.ttk.Separator(window, orient="vertical").grid(row=3, column=11, rowspan=50, sticky='ns')
-    tkinter.ttk.Separator(window, orient="vertical").grid(row=3, column=13, rowspan=50, sticky='ns')
-    tkinter.ttk.Separator(window, orient="vertical").grid(row=3, column=15, rowspan=50, sticky='ns')
-    tkinter.ttk.Separator(window, orient="vertical").grid(row=3, column=17, rowspan=50, sticky='ns')
-    tkinter.ttk.Separator(window, orient="vertical").grid(row=3, column=19, rowspan=50, sticky='ns')
-    tkinter.ttk.Separator(window, orient="vertical").grid(row=3, column=21, rowspan=50, sticky='ns')
-    tkinter.ttk.Separator(window, orient="horizontal").grid(row=4, column=0, columnspan=30, ipadx=700, sticky='ns')
+    tkinter.ttk.Separator(window, orient="vertical").grid(
+        row=3, column=1, rowspan=50, sticky="ns"
+    )
+    tkinter.ttk.Separator(window, orient="vertical").grid(
+        row=3, column=3, rowspan=50, sticky="ns"
+    )
+    tkinter.ttk.Separator(window, orient="vertical").grid(
+        row=3, column=5, rowspan=50, sticky="ns"
+    )
+    tkinter.ttk.Separator(window, orient="vertical").grid(
+        row=3, column=7, rowspan=50, sticky="ns"
+    )
+    tkinter.ttk.Separator(window, orient="vertical").grid(
+        row=3, column=9, rowspan=50, sticky="ns"
+    )
+    tkinter.ttk.Separator(window, orient="vertical").grid(
+        row=3, column=11, rowspan=50, sticky="ns"
+    )
+    tkinter.ttk.Separator(window, orient="vertical").grid(
+        row=3, column=13, rowspan=50, sticky="ns"
+    )
+    tkinter.ttk.Separator(window, orient="vertical").grid(
+        row=3, column=15, rowspan=50, sticky="ns"
+    )
+    tkinter.ttk.Separator(window, orient="vertical").grid(
+        row=3, column=17, rowspan=50, sticky="ns"
+    )
+    tkinter.ttk.Separator(window, orient="vertical").grid(
+        row=3, column=19, rowspan=50, sticky="ns"
+    )
+    tkinter.ttk.Separator(window, orient="vertical").grid(
+        row=3, column=21, rowspan=50, sticky="ns"
+    )
+    tkinter.ttk.Separator(window, orient="horizontal").grid(
+        row=4, column=0, columnspan=30, ipadx=700, sticky="ns"
+    )
+
 
 # Finds a number of classes that match user input via class name
 def searchClassName(userEntry, window, studentID):
-    infoFunc.getNumberOfClassesName(userEntry) # Need to get the number of classes retrieved through search results for loop iteration
+    infoFunc.getNumberOfClassesName(
+        userEntry
+    )  # Need to get the number of classes retrieved through search results for loop iteration
     searchIteration(infoFunc.getNumberOfClassesName(userEntry), window, studentID)
 
 
 # Finds a number classes that match category input
 def searchClassCategory(userEntry, window, studentID):
-    infoFunc.getNumberOfClassesSubject(userEntry) # Need to get the number of classes retrieved through search results for loop iteration
+    infoFunc.getNumberOfClassesSubject(
+        userEntry
+    )  # Need to get the number of classes retrieved through search results for loop iteration
     searchIteration(infoFunc.getNumberOfClassesSubject(userEntry), window, studentID)
 
 
@@ -111,7 +156,9 @@ def searchIteration(entries, window, studentID):
         endTimeLabel = tk.Label(text=endTime[x])
         InstructorNameLabel = tk.Label(text=instructorName[x])
         CourseUnitsLabel = tk.Label(text=CourseUnits[x])
-        addClassButton = tk.Button(text="Add Class", command=lambda: infoFunc.addClass(IDLabel, studentID))
+        addClassButton = tk.Button(
+            text="Add Class", command=lambda: infoFunc.addClass(IDLabel, studentID)
+        )
 
         IDLabel.grid(row=y, column=0)
         SubjectLabel.grid(row=y, column=2)
@@ -128,13 +175,15 @@ def searchIteration(entries, window, studentID):
         x += 1
         y += 2
 
+
 def deleteGrid(window, x, y):
     messageRemoval = window.grid_slaves(row=x, column=y)
     for l in messageRemoval:
         l.destroy()
 
+
 # This function will take from the test file
-'''
+"""
 
 def searchExample(window):
     # Creates class identifiers for the user
@@ -235,4 +284,4 @@ def practiceFunction(userEntry, window):
             x += 1
             y += 2
             print(Subject[x])
-'''
+"""
