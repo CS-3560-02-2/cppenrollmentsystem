@@ -106,6 +106,21 @@ class DB:
             cursor.execute("SELECT COUNT (*) FROM courses WHERE subject=?", (subject,))
             return cursor.fetchone()
 
+    def select_course_title_count(self, title):
+        """Queries db for the count of courses of a subject
+
+        Args:
+            subject (str): Course abbreviation to search
+
+        Returns:
+            Tuple: Integer count of courses
+        """
+        conn = sqlite3.connect(self.db_path)
+        cursor = conn.cursor()
+        with conn:
+            cursor.execute("SELECT COUNT (*) FROM courses WHERE title=?", (title,))
+            return cursor.fetchone()
+
     def select_course(self, subject, course_num):
         """Queries db for course information
 
@@ -182,43 +197,56 @@ class DB:
             )
             return cursor.fetchone()
 
+    def select_course_enrollment_count(self, student_id):
+
+        conn = sqlite3.connect(self.db_path)
+        cursor = conn.cursor()
+        with conn:
+            cursor.execute(
+                """SELECT COUNT (*) FROM course_enrollments WHERE student_id = ?""",
+                (student_id,),
+            )
+            return cursor.fetchone()
+
     def select_course_detail_by_subject(self, subject):
         conn = sqlite3.connect(self.db_path)
         cursor = conn.cursor()
         with conn:
             cursor.execute(
                 """SELECT 
-                c.course_id, c.subject, c.course_num, c.course_title,
-                cs.course_section_id, cs.schedule_days, cs.start_time, cs.end_time,
-                i.first_name || ' ' || i.last_name AS 'Instructor Name'
-            FROM courses c
-            JOIN course_sections cs
-                ON c.course_id = cs.course_id
-            JOIN instructors i
-                ON cs.instructor_id = i.instructor_id
-            WHERE c.subject = ?
-        """,
+                    c.course_id, c.subject, c.course_num, c.course_title,
+                    cs.course_section_id, cs.schedule_days, cs.start_time, cs.end_time,
+                    i.first_name || ' ' || i.last_name AS 'Instructor Name'
+                FROM courses c
+                JOIN course_sections cs
+                    ON c.course_id = cs.course_id
+                JOIN instructors i
+                    ON cs.instructor_id = i.instructor_id
+                WHERE c.subject LIKE ?
+                """,
                 (subject,),
             )
+        return cursor.fetchall()
 
-    def select_course_detail_by_instructor(self, instructor):
+    def select_course_detail_by_title(self, title):
         conn = sqlite3.connect(self.db_path)
         cursor = conn.cursor()
         with conn:
             cursor.execute(
                 """SELECT 
-                c.course_id, c.subject, c.course_num, c.course_title,
-                cs.course_section_id, cs.schedule_days, cs.start_time, cs.end_time,
-                i.first_name || ' ' || i.last_name AS 'Instructor Name'
-            FROM courses c
-            JOIN course_sections cs
-                ON c.course_id = cs.course_id
-            JOIN instructors i
-                ON cs.instructor_id = i.instructor_id
-            WHERE c.subject = ?
-        """,
-                (instructor,),
+                        c.course_id, c.subject, c.course_num, c.course_title,
+                        cs.course_section_id, cs.schedule_days, cs.start_time, cs.end_time,
+                        i.first_name || ' ' || i.last_name AS 'Instructor Name'
+                    FROM courses c
+                    JOIN course_sections cs
+                        ON c.course_id = cs.course_id
+                    JOIN instructors i
+                        ON cs.instructor_id = i.instructor_id
+                    WHERE c.course_title LIKE ?;
+                """,
+                (title,),
             )
+        return cursor.fetchall()
 
     def insert_course_enrollment(self, student_id, course_id, course_section_id):
         """Inserts a new enrollment into the database

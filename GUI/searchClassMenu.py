@@ -1,3 +1,9 @@
+if __name__ == "__main__":
+    import os
+    import sys
+
+    sys.path.append(os.getcwd())
+
 import tkinter as tk
 from tkinter import *
 import tkinter.ttk
@@ -7,18 +13,25 @@ x = 0
 y = 5
 z = 0
 
+
 def searchMenu(window):
     classNamelabel = tk.Label(text="Enter class name")
-    classSearchEntry = tk.Entry()  # Creates an entry box for the user. Requires an enter button to use
-    classSearchEntryButton = tk.Button(text="Search", command=lambda: searchClassName(classSearchEntry, window))
+    classSearchEntry = (
+        tk.Entry()
+    )  # Creates an entry box for the user. Requires an enter button to use
+    classSearchEntryButton = tk.Button(
+        text="Search", command=lambda: searchClassName(classSearchEntry, window)
+    )
 
     # Dropdown menu options
     classDropdown = StringVar(window)
     classDropdown.set("CS")
     classCategory = OptionMenu(window, classDropdown, "CS", "MAT")
-    classCategoryButton = tk.Button(text="Search", command=lambda: searchClassCategory(classCategory, window))
+    classCategoryButton = tk.Button(
+        text="Search", command=lambda: searchClassCategory(classCategory, window)
+    )
     # Practice function
-    #classCategoryButton = tk.Button(text="Search", command=lambda: practiceFunction(classCategory, window))
+    # classCategoryButton = tk.Button(text="Search", command=lambda: practiceFunction(classCategory, window))
 
     # Places objects onto GUI
     classNamelabel.grid(row=1, column=6)
@@ -28,24 +41,45 @@ def searchMenu(window):
     classCategoryButton.grid(row=2, column=10)
 
     # Generates a separator
-    tkinter.ttk.Separator(window, orient="vertical").grid(row=3, column=1, rowspan=50, sticky='ns')
-    tkinter.ttk.Separator(window, orient="vertical").grid(row=3, column=3, rowspan=50, sticky='ns')
-    tkinter.ttk.Separator(window, orient="vertical").grid(row=3, column=5, rowspan=50, sticky='ns')
-    tkinter.ttk.Separator(window, orient="vertical").grid(row=3, column=7, rowspan=50, sticky='ns')
-    tkinter.ttk.Separator(window, orient="vertical").grid(row=3, column=9, rowspan=50, sticky='ns')
-    tkinter.ttk.Separator(window, orient="vertical").grid(row=3, column=11, rowspan=50, sticky='ns')
-    tkinter.ttk.Separator(window, orient="vertical").grid(row=3, column=13, rowspan=50, sticky='ns')
-    tkinter.ttk.Separator(window, orient="horizontal").grid(row=4, column=0, columnspan=30, ipadx=700, sticky='ns')
+    tkinter.ttk.Separator(window, orient="vertical").grid(
+        row=3, column=1, rowspan=50, sticky="ns"
+    )
+    tkinter.ttk.Separator(window, orient="vertical").grid(
+        row=3, column=3, rowspan=50, sticky="ns"
+    )
+    tkinter.ttk.Separator(window, orient="vertical").grid(
+        row=3, column=5, rowspan=50, sticky="ns"
+    )
+    tkinter.ttk.Separator(window, orient="vertical").grid(
+        row=3, column=7, rowspan=50, sticky="ns"
+    )
+    tkinter.ttk.Separator(window, orient="vertical").grid(
+        row=3, column=9, rowspan=50, sticky="ns"
+    )
+    tkinter.ttk.Separator(window, orient="vertical").grid(
+        row=3, column=11, rowspan=50, sticky="ns"
+    )
+    tkinter.ttk.Separator(window, orient="vertical").grid(
+        row=3, column=13, rowspan=50, sticky="ns"
+    )
+    tkinter.ttk.Separator(window, orient="horizontal").grid(
+        row=4, column=0, columnspan=30, ipadx=700, sticky="ns"
+    )
+
 
 # Finds a number of classes that match user input via class name
 def searchClassName(userEntry, window):
-    getNumberOfClasses(userEntry) # Need to get the number of classes retrieved through search results for loop iteration
+    getNumberOfClasses(
+        userEntry
+    )  # Need to get the number of classes retrieved through search results for loop iteration
     searchIteration(getNumberofClasses(userEntry), window)
 
 
 # Finds a number classes that match category input
 def searchClassCategory(userEntry, window):
-    getNumberOfClasses(userEntry) # Need to get the number of classes retrieved through search results for loop iteration
+    getNumberOfClasses(
+        userEntry
+    )  # Need to get the number of classes retrieved through search results for loop iteration
     searchIteration(getNumberofClasses(userEntry), window)
 
 
@@ -79,7 +113,6 @@ def searchIteration(entries, window):
             CourseDescLabel = tk.Label(text=CourseDesc[x])
         CourseUnitsLabel = tk.Label(text=CourseUnits[x])
 
-
         courseIDMessage = tk.Label(text=IDLabel)
         subjectMessage = tk.Label(text=SubjectLabel)
         courseNumMessage = tk.Label(text=CourseNumLabel)
@@ -103,13 +136,15 @@ def searchIteration(entries, window):
 def addClass(classID):
     addStudentClass(classID)
 
+
 def deleteGrid(window, x, y):
     messageRemoval = window.grid_slaves(row=x, column=y)
     for l in messageRemoval:
         l.destroy()
 
+
 # This function will take from the test file
-'''
+"""
 
 def searchExample(window):
     # Creates class identifiers for the user
@@ -210,4 +245,4 @@ def practiceFunction(userEntry, window):
             x += 1
             y += 2
             print(Subject[x])
-'''
+"""
