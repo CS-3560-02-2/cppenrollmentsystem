@@ -4,6 +4,15 @@ def addClass(courseSectionID, studentID):
 def dropClass(courseSectionID, studentID):
     dropStudentClass(courseSectionID, studentID)
 
+def getNumberOfClassesName(userEntryName):
+    ...
+
+def getNumberOfClassesSubject(userEntrySubject):
+    ...
+
+def getNumberOfClassesStudentID(StudentID):
+    ...
+
 def getCourseID():
     ...
 
