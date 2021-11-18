@@ -18,9 +18,8 @@ def main():
     # Search bar methods
     searchClassMenu.searchMenu(window)
     currentClasses.currentClasses(window)
-
     window.columnconfigure(1, weight=0)
-
+    window.after(1000, currentClasses)
     window.mainloop()
 
 main()
