@@ -99,6 +99,7 @@ def searchIteration(entries, window):
         x += 1
         y += 2
 
+
 def addClass(classID):
     addStudentClass(classID)
 
