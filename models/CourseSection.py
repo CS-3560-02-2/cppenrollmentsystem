@@ -1,3 +1,12 @@
+if __name__ == "__main__":
+    import os
+    import sys
+
+    sys.path.append(os.getcwd())
+
+from data.db import DB
+
+
 class CourseSection:
     """Represents a section of a Course
 
@@ -12,5 +21,3 @@ class CourseSection:
         self.student_capacity = student_capacity
         self.course_available = course_available
         self.course_schedule = course_schedule
-
-   

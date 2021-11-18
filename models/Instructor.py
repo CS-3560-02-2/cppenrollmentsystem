@@ -1,4 +1,12 @@
-from User import _User
+if __name__ == "__main__":
+    import os
+    import sys
+
+    sys.path.append(os.getcwd())
+
+from models.User import _User
+from data.db import DB
+
 
 class Instructor(_User):
     """Represents an Instructor
@@ -20,9 +28,23 @@ class Instructor(_User):
         setDepartment: Sets instructor's department to a new one
     """
 
-    def __init__(self, first_name, last_name, street, state, zip_code, phone_number, email, instructor_id, department) -> None:
-        super().__init__(first_name, last_name, street, state, zip_code, phone_number, email)
+    def __init__(
+        self,
+        instructor_id,
+        first_name,
+        last_name,
+        street,
+        city,
+        state,
+        zip_code,
+        phone_number,
+        email,
+        department,
+    ) -> None:
         self.instructor_id = instructor_id
+        super().__init__(
+            first_name, last_name, street, city, state, zip_code, phone_number, email
+        )
         self.department = department
 
     def getInstructor_id(self):

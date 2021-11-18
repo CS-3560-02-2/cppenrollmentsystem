@@ -1,4 +1,12 @@
-import Course.py
+if __name__ == "__main__":
+    import os
+    import sys
+
+    sys.path.append(os.getcwd())
+
+from models.Course import Course
+from data.db import DB
+
 
 class CourseEnrollment:
     """Represents a Student's course enrollment

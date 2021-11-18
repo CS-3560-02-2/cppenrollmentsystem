@@ -1,3 +1,12 @@
+if __name__ == "__main__":
+    import os
+    import sys
+
+    sys.path.append(os.getcwd())
+
+from data.db import DB
+
+
 class _User:
     """This is an abstract base class for Users
 
@@ -18,7 +27,7 @@ class _User:
         getZip_code: Returns User's zip code
         getPhone_number: Returns User's phone number
         getEmail: Returns User's email
-        
+
         setFirst_name: Sets User's first name to a new one
         setLast_name: Sets User's last name to a new one
         setStreet: Sets User's street to a new one
@@ -28,10 +37,13 @@ class _User:
         setEmail:  Sets User's email to a new one
     """
 
-    def __init__(self, first_name, last_name, street, state, zip_code, phone_number, email) -> None:
+    def __init__(
+        self, first_name, last_name, street, city, state, zip_code, phone_number, email
+    ) -> None:
         self.first_name = first_name
         self.last_name = last_name
         self.street = street
+        self.city = city
         self.state = state
         self.zip_code = zip_code
         self.phone_number = phone_number
