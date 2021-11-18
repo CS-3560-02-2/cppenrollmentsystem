@@ -1,7 +1,6 @@
 import tkinter as tk
 from tkinter import *
 import tkinter.ttk
-import collections
 import infoFunc
 
 # Global variables
@@ -81,6 +80,10 @@ def searchClassName(userEntry, window, studentID):
 # Finds a number classes that match category input
 def searchClassCategory(userEntry, window, studentID):
     searchIteration(infoFunc.getNumberOfClassesSubject(userEntry), window, studentID) # Uses a get function to get # of search results and calls function
+    infoFunc.getNumberOfClassesSubject(
+        userEntry
+    )  # Need to get the number of classes retrieved through search results for loop iteration
+    searchIteration(infoFunc.getNumberOfClassesSubject(userEntry), window, studentID)
 
 
 # Gets all matching classes and displays them
