@@ -143,7 +143,7 @@ class util:
             List: list of string course titles
         """
         titles = []
-        for index in titles:
+        for index in self.searched_course:
             titles.append(index[3])
         return titles
 
